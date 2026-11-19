@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>Le Carnet de Fred</title>
+<meta name="description" content="Notes dictées, dossiers et tâches pour les cours de batterie.">
+<meta name="theme-color" content="#edf4f2">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Carnet">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="coast.css">
+<script>
+  /* thème appliqué avant l'affichage, pour éviter un flash */
+  try { var s = JSON.parse(localStorage.getItem('carnet:data') || 'null');
+        var t = s && s.settings && s.settings.theme;
+        document.documentElement.dataset.theme = t || 'light'; } catch (e) { document.documentElement.dataset.theme = 'light'; }
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-notes" viewBox="0 0 24 24"><path d="M7 3h10.5A1.5 1.5 0 0 1 19 4.5v15a1.5 1.5 0 0 1-1.5 1.5H7z"/><path d="M7 3v18M4.5 7.5h4M4.5 12h4M4.5 16.5h4M11 8h5M11 11.5h4"/></symbol>
+  <symbol id="i-tasks" viewBox="0 0 24 24"><path d="M3.5 6.5l1.7 1.7L8.5 5M3.5 12.5l1.7 1.7 3.3-3.2M3.5 18.5l1.7 1.7 3.3-3.2M11.5 6.5h9M11.5 12.5h9M11.5 18.5h9"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.3-4.3"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H9l2 2.2h7.5A2.5 2.5 0 0 1 21 9.7v7.8a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11.5" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2.2" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/></symbol>
+  <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="M10 6l6 6-6 6"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="18.5" cy="12" r="1.6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M9 3.5h6l-1 5.5 3.5 3.2V14h-11v-1.8L10 9z"/><path d="M12 14v6.5"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4.5L16 4.5l3.5 3.5L8.5 19z"/><path d="M14 7l3 3"/></symbol>
+  <symbol id="i-template" viewBox="0 0 24 24"><path d="M6.5 3h8l4 4v14h-12z"/><path d="M14.5 3v4h4M9.5 12h6M9.5 15.5h6M9.5 8.5h2.5"/></symbol>
+  <symbol id="i-task-add" viewBox="0 0 24 24"><path d="M3.5 12l4 4 8-8.5"/><path d="M18.5 13v7M15 16.5h7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15.5V4.5M7 9.5l5-5 5 5M5 20h14"/></symbol>
+  <symbol id="i-restore" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.4-5.5L4.5 8.8"/><path d="M4.5 4v4.8h4.8"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2"/><path d="M15.5 8.5V5.5a1.5 1.5 0 0 0-1.5-1.5H5.5A1.5 1.5 0 0 0 4 5.5V14a1.5 1.5 0 0 0 1.5 1.5h3"/></symbol>
+  <symbol id="i-install" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10.5 18.5h3"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.4c-.6.3-1 .8-1 1.5v.4M12 17.2v.1"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M6.5 3h8l4 4v14h-12z"/><path d="M14.5 3v4h4"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M11 3.5l1.9 5.6 5.6 1.9-5.6 1.9L11 18.5l-1.9-5.6L3.5 11l5.6-1.9z"/><path d="M18.5 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></symbol>
+  <symbol id="i-shapes" viewBox="0 0 24 24"><circle cx="7.5" cy="7.5" r="3.8"/><rect x="13.2" y="3.7" width="7.3" height="7.3" rx="1.8"/><path d="M12 13.2l4.6 7.3H7.4z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.2" r="3.9"/><path d="M4.8 20.5a7.2 7.2 0 0 1 14.4 0"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.5"/><path d="M2.5 19.5a6.5 6.5 0 0 1 13 0"/><path d="M16 5.2a3.5 3.5 0 0 1 0 6.6M18 14a6 6 0 0 1 3.5 5.5"/></symbol>
+  <symbol id="i-drum" viewBox="0 0 24 24"><ellipse cx="12" cy="9.5" rx="8" ry="3"/><path d="M4 9.5v6.5c0 1.7 3.6 3 8 3s8-1.3 8-3V9.5M8 12.3v6.3M16 12.3v6.3"/><path d="M14.5 6.6l5-3.6M9.5 6.6l-5-3.6"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5.5l11-2v12.5"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></symbol>
+  <symbol id="i-grad" viewBox="0 0 24 24"><path d="M2.5 9.2L12 4.7l9.5 4.5L12 13.7z"/><path d="M6.5 11.3v5c3 2.3 8 2.3 11 0v-5M21.5 9.2v5"/></symbol>
+  <symbol id="i-work" viewBox="0 0 24 24"><rect x="3.5" y="7" width="17" height="12.5" rx="2.2"/><path d="M9 7V5h6v2M3.5 12.5h17"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-6.5 8 6.5v9H4z"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 9.1 4.7 4.7 0 0 0 7 18.5z"/></symbol>
+  <symbol id="i-sync" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 0 1-13.2 4.9M4.5 12a7.5 7.5 0 0 1 13.2-4.9"/><path d="M18 3.5v4h-4M6 20.5v-4h4"/></symbol>
+  <symbol id="i-sticks" viewBox="0 0 24 24"><path d="M5 20.5L16.6 5.2M19 20.5L7.4 5.2"/><circle cx="17.4" cy="4.2" r="1.7" fill="currentColor" stroke="none"/><circle cx="6.6" cy="4.2" r="1.7" fill="currentColor" stroke="none"/></symbol>
+</svg>
+
+<div id="app">
+  <nav id="nav" aria-label="Navigation principale">
+    <div class="brand" aria-hidden="true"><svg class="ic"><use href="#i-sticks"/></svg></div>
+    <a href="#/notes" class="nav-item" data-act="nav" data-to="#/notes" data-nav="notes">
+      <svg class="ic"><use href="#i-notes"/></svg><span>Notes</span></a>
+    <a href="#/calendar" class="nav-item" data-act="nav" data-to="#/calendar" data-nav="calendar">
+      <svg class="ic"><use href="#i-cal"/></svg><span>Agenda</span></a>
+    <button id="fab" class="fab" data-act="fab" aria-label="Dicter une nouvelle note" title="Dicter une nouvelle note (Alt+D)">
+      <svg class="ic mic-ic"><use href="#i-mic"/></svg><svg class="ic stop-ic"><use href="#i-stop"/></svg></button>
+    <a href="#/tasks" class="nav-item" data-act="nav" data-to="#/tasks" data-nav="tasks">
+      <svg class="ic"><use href="#i-tasks"/></svg><span>Tâches</span><b class="badge" id="task-badge" hidden></b></a>
+    <a href="#/search" class="nav-item nav-desk" data-act="nav" data-to="#/search" data-nav="search">
+      <svg class="ic"><use href="#i-search"/></svg><span>Chercher</span></a>
+    <a href="#/folders" class="nav-item" data-act="nav" data-to="#/folders" data-nav="folders">
+      <svg class="ic"><use href="#i-folder"/></svg><span>Dossiers</span></a>
+  </nav>
+  <main id="list" tabindex="-1"></main>
+  <section id="detail" aria-label="Note"></section>
+</div>
+
+<div id="sheet-layer" hidden>
+  <div class="scrim" data-act="sheet-close"></div>
+  <div class="sheet" role="dialog" aria-modal="true"></div>
+</div>
+<div id="toasts" aria-live="polite"></div>
+<div id="update-bar" hidden>
+  <span>Nouvelle version disponible</span>
+  <button data-act="update-app">Actualiser</button>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js" defer></script>
+</body>
+</html>

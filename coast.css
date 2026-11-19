@@ -1,0 +1,257 @@
+/* Le Carnet de Fred — Côte d'Irlande
+   Habillage uniquement : structure, fonctions et données inchangées.
+   Illustration locale, sans requête réseau et disponible hors ligne. */
+
+:root {
+  --bg: #edf4f2;
+  --surface: #ffffff;
+  --surface-2: #eaf3f1;
+  --surface-3: #dcece8;
+  --ink: #193b46;
+  --ink-2: #435f68;
+  --ink-3: #657d83;
+  --line: #d5e5e1;
+  --rule: #e4efeb;
+  --tint: #247e83;
+  --accent: #c95342;
+  --accent-2: #a43e32;
+  --accent-soft: #d9f0e9;
+  --on-accent: #ffffff;
+  --sand: #f0e9d9;
+  --glow: rgba(107, 182, 174, .17);
+  --ok: #337f64;
+  --late: #b64035;
+  --soon: #966b2c;
+  --m1: #fff;
+  --m2: #f8fbfa;
+  --m3: #f1f7f5;
+  --metal: linear-gradient(160deg, var(--m1), var(--m2));
+  --edge: inset 0 1px 0 rgba(255,255,255,.9);
+  --sky: radial-gradient(900px 410px at 100% 2%, rgba(148,204,192,.22), transparent 70%),
+    radial-gradient(620px 420px at -12% 0%, rgba(211,232,224,.65), transparent 75%),
+    linear-gradient(180deg,#f3f8f5 0%,#edf4f2 450px);
+  --chrome: linear-gradient(130deg,#1d6571,#348c89);
+  --shadow-1: 0 2px 4px rgba(29,74,78,.035),0 14px 27px -19px rgba(24,81,83,.28);
+  --shadow-2: 0 22px 60px -18px rgba(15,56,62,.35);
+  --toast-bg: #1c414b;
+  --toast-ink: #f1faf7;
+  --serif: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --r: 20px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #102a31; --surface: #19363e; --surface-2: #23434b; --surface-3: #30535a;
+    --ink: #eaf4f0; --ink-2: #bdd2d0; --ink-3: #a2c2c1;
+    --line: #35565b; --rule: #28484e; --tint: #86d2c5;
+    --accent: #eb806b; --accent-2: #f3a58f; --accent-soft: #285a59;
+    --sand: #344942; --glow: rgba(71,151,149,.15);
+    --ok: #7acbaa; --late: #ff9986; --soon: #e4b96f;
+    --m1: #23464d; --m2: #19363e; --m3: #17313a;
+    --metal: linear-gradient(160deg,var(--m1),var(--m2));
+    --edge: inset 0 1px 0 rgba(255,255,255,.07);
+    --sky: radial-gradient(740px 380px at 90% 0%,#234d50,transparent 80%), #102a31;
+    --chrome: linear-gradient(130deg,#d0f1e4,#91cecd);
+    --shadow-1: 0 2px 9px rgba(0,0,0,.14); --shadow-2: 0 24px 55px rgba(0,0,0,.45);
+    --toast-bg: #e5f1ee; --toast-ink: #12313a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #102a31; --surface: #19363e; --surface-2: #23434b; --surface-3: #30535a;
+  --ink: #eaf4f0; --ink-2: #bdd2d0; --ink-3: #a2c2c1;
+  --line: #35565b; --rule: #28484e; --tint: #86d2c5;
+  --accent: #eb806b; --accent-2: #f3a58f; --accent-soft: #285a59;
+  --sand: #344942; --glow: rgba(71,151,149,.15);
+  --ok: #7acbaa; --late: #ff9986; --soon: #e4b96f;
+  --m1: #23464d; --m2: #19363e; --m3: #17313a;
+  --metal: linear-gradient(160deg,var(--m1),var(--m2));
+  --edge: inset 0 1px 0 rgba(255,255,255,.07);
+  --sky: radial-gradient(740px 380px at 90% 0%,#234d50,transparent 80%), #102a31;
+  --chrome: linear-gradient(130deg,#d0f1e4,#91cecd);
+  --shadow-1: 0 2px 9px rgba(0,0,0,.14); --shadow-2: 0 24px 55px rgba(0,0,0,.45);
+  --toast-bg: #e5f1ee; --toast-ink: #12313a;
+  color-scheme: dark;
+}
+
+body { background: var(--sky); color: var(--ink); }
+#detail { background: var(--bg); }
+mark { background: var(--accent-soft); }
+:focus-visible { outline-color: var(--tint); outline-offset: 3px; }
+
+/* Côte irlandaise : lumière bleutée derrière les titres, paysage en retrait. */
+.vh {
+  position: relative; isolation: isolate; overflow: hidden;
+  margin: 8px 0 5px; padding: 20px 18px 17px;
+  border: 1px solid #c9e0ea;
+  border-radius: 24px;
+  background:
+    radial-gradient(ellipse at 13% 8%,rgba(255,255,255,.78),transparent 66%),
+    linear-gradient(90deg,rgba(244,250,253,.99) 0%,rgba(241,249,253,.985) 45%,rgba(238,248,252,.91) 70%,rgba(217,238,247,.41) 100%),
+    url("coastline.svg") right bottom / cover no-repeat;
+  box-shadow: 0 12px 32px -25px rgba(39,89,128,.4);
+}
+.vh::after {
+  content: ""; position: absolute; pointer-events: none; z-index: -1;
+  left: 15px; bottom: 0; width: 85px; height: 3px; border-radius: 5px 5px 0 0;
+  background: linear-gradient(90deg,#367ba5,#9fc9d5);
+}
+.vh-row { align-items: flex-start; }
+.vh h1 {
+  font: 750 clamp(27px,7.5vw,35px)/1.1 var(--serif);
+  letter-spacing: -.035em; color: #173f57;
+  text-shadow: 0 1px rgba(255,255,255,.25);
+}
+.vh h1 em {
+  font: italic 600 1.06em/1.1 Georgia,"Palatino Linotype",serif;
+  color: #236b91; background: none; -webkit-text-fill-color: currentColor;
+  animation: none; letter-spacing: -.055em;
+}
+.eyebrow { color: #456c83; font: 600 12.5px/1.5 var(--sans); letter-spacing: .02em; }
+.stats { margin: 13px 0 0; gap: 7px 12px; font-size: 13px; color: #3e6479; }
+.stats b { color: #174862; }
+.stats i { background: #568e8c; opacity: .6; }
+.vh .icon-btn.solid { background: rgba(255,255,255,.89); border-color: rgba(149,185,204,.68); box-shadow: 0 3px 12px rgba(28,81,113,.08); color: #245e79; }
+.vh .icon-btn:hover { background: #fff; }
+.vh-actions { gap: 2px; }
+
+/* Le contenu reste clair et lumineux, avec de petites touches de couleur. */
+.sec { color: var(--ink-3); font: 750 11.5px/1.4 var(--sans); letter-spacing: .11em; }
+.sec::after { background: linear-gradient(90deg,var(--line),transparent); }
+.group-label { color: var(--ink-2); font-weight: 750; }
+.link { color: var(--tint); }
+.icon-btn.solid,.pill-btn,.act-btn,.chip,.btn,.seg,.quick button {
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-1);
+}
+.icon-btn:hover,.pill-btn:hover,.act-btn:hover { background: var(--surface-2); }
+.pill-btn.on,.chip.on,.cal-wd button.on {
+  background: #236670; color: #fff; border-color: #236670;
+  box-shadow: 0 6px 16px -10px rgba(17,73,79,.5);
+}
+.pill-btn.on b,.chip.on b { color: rgba(255,255,255,.8); }
+.pill-btn.ghost { background: transparent; border: 1px dashed var(--line); box-shadow: none; }
+.btn.primary,.round.primary { background: #287982; color: #fff; border: 1px solid #287982; box-shadow: 0 8px 20px -12px rgba(22,95,104,.52); }
+.btn.danger { background: transparent; border-color: transparent; box-shadow: none; }
+.btn.ghost { background: transparent; box-shadow: none; }
+.pill.on { border-color: var(--tint); background: var(--accent-soft); }
+
+.pads { gap: 12px; margin-top: 16px; }
+.pad {
+  min-height: 142px; border-radius: 21px; padding: 16px;
+  background:
+    linear-gradient(105deg,color-mix(in srgb,var(--surface) 98%,transparent),color-mix(in srgb,var(--surface) 91%,transparent) 66%,color-mix(in srgb,var(--surface) 83%,transparent)),
+    url("coastline.svg") 80% center / cover no-repeat;
+  border: 1px solid color-mix(in srgb,var(--c) 19%,var(--line));
+  box-shadow: var(--shadow-1); animation: rise .34s var(--ease) calc(var(--i) * 45ms) both;
+}
+.pad::before { display: none; }
+.pad.on { border-color: var(--tint); box-shadow: 0 0 0 2px color-mix(in srgb,var(--tint) 36%,transparent),var(--shadow-1); }
+.pad-ic {
+  width: 47px; height: 47px; border-radius: 16px;
+  color: color-mix(in srgb,var(--c) 76%,var(--ink));
+  background: color-mix(in srgb,var(--c) 13%,var(--surface));
+  box-shadow: none; border: 1px solid color-mix(in srgb,var(--c) 16%,transparent);
+}
+.pad-ic .ic { width: 24px; height: 24px; }
+.pad-n { font-size: 32px; color: var(--ink-2); opacity: .82; }
+.pad-name { color: var(--ink); font-size: 17px; font-weight: 760; }
+.pad-sub { color: var(--ink-3); font-size: 12.5px; }
+.pad-led { top: 17px; left: 57px; }
+.pad.on .pad-led { box-shadow: 0 0 0 3px color-mix(in srgb,var(--c) 13%,transparent); }
+.act-row { margin-top: 12px; }
+.act-btn { background: var(--surface); border-radius: 16px; font-weight: 680; color: var(--ink); }
+.act-btn .ic { color: var(--tint); }
+.act-btn:first-child { background: linear-gradient(130deg,color-mix(in srgb,var(--tint) 11%,var(--surface)),var(--surface)); }
+.act-btn:last-child { background: linear-gradient(130deg,color-mix(in srgb,#c69c6b 15%,var(--surface)),var(--surface)); }
+.card,.today,.tlist,.flist,.group,.cal,.qa {
+  background: var(--surface); border-color: var(--line); box-shadow: var(--shadow-1);
+}
+.card { border-radius: 18px; }
+.card h3 { color: var(--ink); }
+.card-top { color: var(--ink-3); }
+.card::before { top: 16px; bottom: 16px; width: 4px; border-radius: 0 4px 4px 0; }
+.tag { background: var(--surface-2); }
+.today-head h2 span { color: var(--accent); }
+.qa:focus-within,.input:focus { border-color: var(--tint); box-shadow: 0 0 0 3px var(--accent-soft); }
+.day.today .dn { color: var(--tint); box-shadow: inset 0 0 0 1.5px var(--tint); }
+.day.sel .dn { background: #236670; color: #fff; }
+.day.wdon { background: var(--sand); }
+.cal-wd button.on { color: #fff; }
+.femo { color: var(--ink); background: color-mix(in srgb,var(--c) 15%,var(--surface-2)); box-shadow: none; }
+.folder-pill { background: var(--surface-2); box-shadow: none; }
+.ed-bar { background: var(--surface); }
+.ed-paper { background: var(--surface); margin: 12px auto; border-radius: 18px; padding: 23px 24px 35px; box-shadow: var(--shadow-1); }
+.ed-paper::before { display: none; }
+.ed-body { background-image: none; line-height: 1.7; }
+.ed-dock { background: color-mix(in srgb,var(--surface) 92%,transparent); border-color: var(--line); }
+.sheet { background: var(--surface); }
+.input { background: var(--surface-2); }
+.scrim { background: rgba(13,43,51,.5); }
+
+/* Le rouge corail signale toujours l'enregistrement, sans changer son rôle. */
+.fab,.mic {
+  border: 4px solid rgba(255,255,255,.94);
+  background: linear-gradient(145deg,#e87961,#c64e3d) padding-box;
+  box-shadow: 0 12px 25px -11px rgba(150,61,49,.6),0 3px 6px rgba(37,80,80,.1);
+  color: #fff;
+}
+.fab::before,.fab::after,.mic::before,.mic::after { border-color: #db705d; }
+.badge { background: var(--accent); }
+
+@media (max-width: 899.98px) {
+  .wrap { padding-inline: 14px; }
+  .vh { margin-top: 8px; padding: 18px 15px 16px; }
+  .vh .icon-btn { width: 38px; height: 38px; }
+  .stats { max-width: 260px; }
+  #nav {
+    background: color-mix(in srgb,var(--surface) 89%,transparent);
+    border: 1px solid color-mix(in srgb,var(--tint) 12%,var(--line));
+    box-shadow: 0 13px 34px -15px rgba(20,77,82,.32);
+    backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  }
+  .nav-item { color: var(--ink-3); }
+  .nav-item.on { color: var(--tint); }
+  .nav-item.on::after { background: var(--tint); }
+  .fab { box-shadow: 0 0 0 5px var(--bg),0 13px 24px -9px rgba(174,68,55,.5); }
+  .ed-paper { margin: 8px 10px 15px; padding: 20px 17px 30px; }
+  .ed-tasks { padding-inline: 21px; }
+}
+
+@media (min-width: 900px) {
+  #nav {
+    background: linear-gradient(180deg,#194a55,#173943 88%);
+    border-right-color: rgba(255,255,255,.06);
+  }
+  #nav .brand { color: #cdeae1; background: rgba(255,255,255,.1); border-radius: 14px; }
+  .nav-item { color: #c4dbdb; }
+  .nav-item:hover { color: #fff; background: rgba(255,255,255,.1); }
+  .nav-item.on { color: #fff; background: rgba(160,217,204,.17); }
+  .nav-item.on::after { background: #98d8c7; }
+  .fab { margin-top: 0; }
+  #list { background: color-mix(in srgb,var(--bg) 84%,var(--surface)); border-right: 1px solid var(--line); }
+  #detail { background: var(--bg); }
+  .vh { margin-top: 8px; }
+  .ed-paper { max-width: 800px; margin-top: 18px; }
+}
+
+/* Le décor reste lisible dans l'éditeur et sous le mode sombre. */
+:root[data-theme="dark"] .vh { background: linear-gradient(90deg,rgba(26,58,66,.96),rgba(26,58,66,.84) 64%,rgba(26,58,66,.58)),url("coastline.svg") right bottom / cover no-repeat; }
+:root[data-theme="dark"] .vh h1,:root[data-theme="dark"] .vh h1 em,:root[data-theme="dark"] .eyebrow,:root[data-theme="dark"] .stats,:root[data-theme="dark"] .stats b { color: #e4f4ed; text-shadow: none; }
+:root[data-theme="dark"] .vh .icon-btn.solid { background: rgba(22,55,62,.85); border-color: #42656a; color: #e2f1eb; }
+:root[data-theme="dark"] .pill-btn.on,:root[data-theme="dark"] .chip.on,:root[data-theme="dark"] .cal-wd button.on { background: #357c80; border-color: #357c80; }
+:root[data-theme="dark"] .day.sel .dn { background: #357c80; }
+:root[data-theme="dark"] .btn.primary,:root[data-theme="dark"] .round.primary { background: #357c80; border-color: #357c80; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .vh { background: linear-gradient(90deg,rgba(26,58,66,.96),rgba(26,58,66,.84) 64%,rgba(26,58,66,.58)),url("coastline.svg") right bottom / cover no-repeat; }
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .vh h1,
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .vh h1 em,
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .eyebrow,
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .stats,
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .stats b { color: #e4f4ed; text-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pad { animation: none; }
+}
