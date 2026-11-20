@@ -1,22 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="sea" x1="0" x2="1" y1="0" y2="1">
-      <stop stop-color="#318b88"/>
-      <stop offset="1" stop-color="#123e4b"/>
+    <linearGradient id="leather" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#2a4769"/>
+      <stop offset=".49" stop-color="#142943"/>
+      <stop offset="1" stop-color="#081b31"/>
     </linearGradient>
-    <linearGradient id="paper" x2=".8" y2="1">
-      <stop stop-color="#f9fcf7"/>
-      <stop offset="1" stop-color="#d6ece5"/>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2=".6">
+      <stop stop-color="#f5d9a1"/>
+      <stop offset=".46" stop-color="#c4944b"/>
+      <stop offset="1" stop-color="#eed09a"/>
     </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#fff0d4"/>
+      <stop offset="1" stop-color="#d0b282"/>
+    </linearGradient>
+    <radialGradient id="halo"><stop stop-color="#d4a45f" stop-opacity=".23"/><stop offset="1" stop-color="#d4a45f" stop-opacity="0"/></radialGradient>
+    <pattern id="grain" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".65" fill="#fff" opacity=".095"/></pattern>
   </defs>
-  <rect width="512" height="512" rx="114" fill="url(#sea)"/>
-  <path d="M0 359 Q95 313 182 351 T363 350 T512 335 V512 H0Z" fill="#78af9f" opacity=".18"/>
-  <rect x="140" y="106" width="247" height="310" rx="32" fill="url(#paper)"/>
-  <rect x="140" y="106" width="247" height="310" rx="32" fill="none" stroke="#b8d9d0" stroke-width="5"/>
-  <rect x="171" y="146" width="8" height="229" rx="4" fill="#75a5a0" opacity=".48"/>
-  <path d="M203 249 Q234 228 266 249 T330 249" fill="none" stroke="#357e83" stroke-width="15" stroke-linecap="round"/>
-  <path d="M203 283 Q234 262 266 283 T330 283" fill="none" stroke="#72ada5" stroke-width="12" stroke-linecap="round"/>
-  <path d="M204 318 Q235 300 266 318 T329 318" fill="none" stroke="#9ec8bb" stroke-width="9" stroke-linecap="round"/>
-  <circle cx="324" cy="185" r="22" fill="#d57960"/>
-  <path d="M127 181h24M127 249h24M127 317h24" fill="none" stroke="#b4d7cf" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- Cuir bleu nuit : motif sobre, encadrement en laiton. -->
+  <rect width="512" height="512" rx="112" fill="url(#leather)"/>
+  <rect width="512" height="512" rx="112" fill="url(#grain)"/>
+  <rect x="21" y="21" width="470" height="470" rx="95" fill="none" stroke="#d5ad71" stroke-width="6" opacity=".83"/>
+  <rect x="34" y="34" width="444" height="444" rx="85" fill="none" stroke="#e9c98f" stroke-width="1.5" opacity=".35"/>
+
+  <!-- La fenêtre d'observatoire et la lune de Galilée. -->
+  <path d="M117 405V190C117 127 191 93 256 65c65 28 139 62 139 125v215" fill="#091a2d" fill-opacity=".47" stroke="url(#brass)" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M131 389V195c0-54 65-84 125-111 60 27 125 57 125 111v194" fill="none" stroke="#9c7849" stroke-width="2" opacity=".7"/>
+  <circle cx="256" cy="193" r="107" fill="url(#halo)"/>
+  <circle cx="256" cy="190" r="59" fill="url(#brass)"/>
+  <path d="M272 133a59 59 0 0 1 0 114c22-12 34-31 34-57s-12-45-34-57z" fill="#274566" opacity=".9"/>
+  <circle cx="238" cy="178" r="5" fill="#856b4b" opacity=".23"/>
+  <circle cx="264" cy="213" r="7" fill="#856b4b" opacity=".18"/>
+  <path d="M157 181h16m-8-8v16M343 239h13m-6.5-6.5v13M320 123h10m-5-5v10" stroke="#f1d4a1" stroke-width="3.5" stroke-linecap="round" opacity=".85"/>
+
+  <!-- Deux baguettes croisées : la signature musicale de Fred. -->
+  <path d="M215 264l82 61M297 264l-82 61" stroke="#ba8d50" stroke-width="10" stroke-linecap="round"/>
+  <path d="M215 264l82 61M297 264l-82 61" stroke="#f3d29d" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="214" cy="262" r="8" fill="url(#brass)"/><circle cx="298" cy="262" r="8" fill="url(#brass)"/>
+
+  <!-- Carnet ouvert, dessin gravé plutôt que pictogramme enfantin. -->
+  <path d="M111 369q71-25 145 9 74-34 145-9v42q-72-24-145 10-73-34-145-10z" fill="#07172a" opacity=".56"/>
+  <path d="M133 352q65-24 123 7 58-31 123-7v70q-64-24-123 8-59-32-123-8z" fill="url(#paper)" stroke="#d4a867" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M256 359v71M153 371q45-10 83 10M153 390q45-10 83 10M276 381q38-20 83-10M276 400q38-20 83-10" fill="none" stroke="#8c744f" stroke-width="3" opacity=".63" stroke-linecap="round"/>
+  <path d="M124 439h264" stroke="#d1a66f" stroke-width="4" stroke-linecap="round" opacity=".78"/>
 </svg>

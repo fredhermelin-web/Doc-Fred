@@ -1,6 +1,16 @@
 # Le Carnet de Fred — mode d'emploi
 
-## Mise à jour 1.5.0 — Cabinet Léonard & Galilée (GitHub Pages)
+## Mise à jour 1.5.1 — Cabinet Léonard & Galilée (GitHub Pages)
+
+**Nouveauté 1.5.1 :** nouvelle icône de l'application, bleu nuit et laiton :
+vitrail d'observatoire, lune, baguettes de batterie et carnet ouvert.
+Le dessin principal du carnet, ses commandes et les données personnelles ne changent pas.
+
+**Icône du POCO :** une fois les nouveaux fichiers déposés dans GitHub, la
+nouvelle icône est disponible pour l'installation. Sur une application déjà
+installée, Android/Chrome peut conserver l'ancienne icône un certain temps.
+N'efface pas les données du navigateur et ne désinstalle pas l'ancienne
+application sans avoir exporté une sauvegarde de tes notes dans **Dossiers**.
 
 Cette version reprend exactement la même application et les mêmes données locales.
 Elle change la présentation de l'accueil : image Léonard/Galilée, rail de navigation

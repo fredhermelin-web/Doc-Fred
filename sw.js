@@ -1,12 +1,12 @@
 /* Le Carnet de Fred — service worker
    Garde toute l'appli en cache pour qu'elle s'ouvre sans réseau.
    À CHAQUE MISE EN LIGNE : change VERSION ici ET dans app.js. */
-const VERSION = '1.5.0';
+const VERSION = '1.5.1';
 const CACHE = 'carnet-' + VERSION;
 const ASSETS = [
   './', './index.html', './app.css', './coast.css', './coastline.svg', './atelier.css', './atelier-leonard.jpg', './app.js', './config.js', './manifest.webmanifest',
-  './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png',
-  './icons/apple-touch-icon.png', './icons/favicon.png',
+  './icons/icon-192-leonard.png', './icons/icon-512-leonard.png', './icons/maskable-512-leonard.png',
+  './icons/apple-touch-icon-leonard.png', './icons/favicon-leonard.png',
 ];
 
 self.addEventListener('install', e => {
