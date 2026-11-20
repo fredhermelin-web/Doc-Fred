@@ -5,7 +5,7 @@
 'use strict';
 (() => {
 
-const VERSION = '1.4.1';            // à changer en même temps que dans sw.js
+const VERSION = '1.5.0';            // à changer en même temps que dans sw.js
 const KEY = 'carnet:data';
 const IS_ANDROID = /Android/i.test(navigator.userAgent);
 
@@ -153,10 +153,14 @@ const DEFAULT_SETTINGS = { theme: 'auto', filter: 'all', taskFilter: 'all', last
 const PALETTE = ['#3D5AC4', '#1F8A80', '#C98A1B', '#C8452C', '#4C9A3A', '#4A6378', '#E07A1F', '#7A6A5A'];
 const OLD_PINK = '#C2417B';
 // icônes de dossiers (dessins au trait, plus d'emojis)
-const ICONS = ['spark', 'shapes', 'user', 'users', 'drum', 'music', 'grad', 'work', 'bolt', 'home', 'cal', 'mic', 'notes', 'folder'];
+const ICONS = ['drumkit', 'drum', 'sticks', 'music', 'grad', 'notes', 'user', 'users', 'spark', 'shapes', 'work', 'bolt', 'home', 'cal', 'mic', 'folder'];
 const EMO2IC = { '🎭': 'spark', '🎨': 'shapes', '🥁': 'drum', '🎵': 'music', '🎸': 'music', '🎹': 'music', '🎤': 'mic', '🎓': 'grad', '🏫': 'grad',
   '👥': 'users', '📅': 'cal', '💡': 'bolt', '⭐': 'spark', '🧾': 'work', '🚗': 'work', '🏠': 'home', '🎧': 'music', '📝': 'notes' };
-const fIcon = f => icon((f && f.icon) || 'folder');
+// Les anciens dossiers gardent leurs données : seuls leurs pictogrammes par défaut évoluent.
+const fIcon = f => icon(!f ? 'folder'
+  : f.id === 'f-tes' && f.icon === 'spark' ? 'drumkit'
+  : f.id === 'f-pda' && f.icon === 'shapes' ? 'drum'
+  : f.icon || 'folder');
 const WELCOME = `Fred, voici ton carnet de cours.
 
 – Touche le gros bouton rouge pour dicter : tu parles, le texte s'écrit.
@@ -173,13 +177,14 @@ function seed() {
   return {
     v: 1,
     folders: [
-      { id: 'f-tes', name: 'Tous en scène', color: '#3D5AC4', icon: 'spark', order: 0, updated: now },
-      { id: 'f-pda', name: 'Pôle des Arts', color: '#1F8A80', icon: 'shapes', order: 1, updated: now },
+      { id: 'f-tes', name: 'Tous en scène', color: '#3D5AC4', icon: 'drumkit', order: 0, updated: now },
+      { id: 'f-pda', name: 'Pôle des Arts', color: '#1F8A80', icon: 'drum', order: 1, updated: now },
       { id: 'f-perso', name: 'Perso', color: '#C98A1B', icon: 'user', order: 2, updated: now },
     ],
     tombs: {},
-    notes: [{ id: uid(), folderId: 'f-perso', title: 'Bienvenue dans ton carnet', body: WELCOME, pinned: true, created: now, updated: now, deleted: 0 }],
-    tasks: [{ id: uid(), text: 'Essayer la dictée avec le bouton rouge', due: ymd(new Date()), done: false, doneAt: 0, folderId: 'f-perso', noteId: null, created: now, updated: now }],
+    // Aucun exemple imposé au premier démarrage ; les données déjà enregistrées restent intactes.
+    notes: [],
+    tasks: [],
     settings: { ...DEFAULT_SETTINGS },
   };
 }
@@ -285,6 +290,7 @@ function renderList() {
   const a = document.activeElement, keep = a && listEl.contains(a) && a.id ? { id: a.id, val: a.value, s: a.selectionStart } : null;
   const html = ({ notes: viewNotes, tasks: viewTasks, search: viewSearch, folders: viewFolders, trash: viewTrash, calendar: viewCalendar })[v]();
   const isNew = state.rendered !== v;
+  listEl.dataset.view = v;
   listEl.innerHTML = `<div class="wrap ${isNew ? 'enter' : ''}">${html}</div>`;
   state.rendered = v;
   if (keep) { const el = $('#' + keep.id); if (el) { el.value = keep.val; el.focus(); try { el.setSelectionRange(keep.s, keep.s); } catch (_) {} } }
@@ -292,10 +298,6 @@ function renderList() {
   if (isNew) { if (state.wide) listEl.scrollTop = 0; else window.scrollTo(0, 0); }
 }
 
-function greeting() {
-  const h = new Date().getHours();
-  return h < 5 ? 'Bonne nuit' : h < 12 ? 'Bonjour' : h < 18 ? 'Bon après-midi' : 'Bonsoir';
-}
 function chips(sel, act, counts, extraNone) {
   const c = k => counts ? ` <b>${counts[k] || 0}</b>` : '';
   let h = `<button class="chip ${sel === 'all' ? 'on' : ''}" data-act="${act}" data-id="all">Tout${c('all')}</button>`;
@@ -325,34 +327,21 @@ function viewNotes() {
   const now = new Date();
   let h = `<header class="vh"><div class="vh-row"><div>
       <p class="eyebrow">${cap(fmt(now, { weekday: 'long', day: 'numeric', month: 'long' }))}</p>
-      <h1>${greeting()} <em>Fred</em></h1></div>
+      <h1>Fred</h1></div>
       <div class="vh-actions">${syncBtn()}
-      <button class="icon-btn solid only-mobile" data-act="nav" data-to="#/search" aria-label="Chercher" title="Chercher (Ctrl+K)">${icon('search')}</button>
+      <button class="icon-btn solid calendar-jump" data-act="nav" data-to="#/calendar" aria-label="Ouvrir le calendrier" title="Ouvrir le calendrier">${icon('cal')}</button>
       <button class="icon-btn solid" data-act="new-note" aria-label="Écrire une note" title="Écrire une note (Alt+N)">${icon('pen')}</button></div>
-    </div>${statsLine()}</header>`;
+    </div></header>`;
 
   h += padsHtml(sel, counts);
-  h += `<div class="act-row">
-    <button class="act-btn" data-act="new-lesson">${icon('template')}<span>Cours du jour</span></button>
-    <button class="act-btn" data-act="new-task">${icon('task-add')}<span>Tâche rapide</span></button>
-  </div>`;
 
   if (state.installEvt && !db.settings.installHidden) {
     h += `<div class="banner">${icon('install')}<p>Installe le carnet sur ton écran d'accueil pour l'ouvrir comme une vraie appli.</p>
       <button class="btn primary" data-act="install">Installer</button><button class="icon-btn" data-act="install-hide" aria-label="Masquer">${icon('x')}</button></div>`;
   }
 
-  const urg = urgentTasks();
-  if (urg.length) {
-    const late = urg.filter(t => dayDiff(t.due) < 0).length;
-    h += `<section class="today"><div class="today-head"><h2>Aujourd'hui <span>· ${urg.length}</span></h2>
-      <button class="link" data-act="nav" data-to="#/tasks">${late ? `${late} en retard · ` : ''}Tout voir${icon('chev-right')}</button></div>
-      <ul>${urg.slice(0, 3).map(t => taskItem(t, true)).join('')}</ul></section>`;
-  }
-
   if (!notes.length) {
-    h += `<div class="empty">${icon('notes')}<h3>${sel === 'all' ? 'Ton carnet est vide' : 'Rien dans ce dossier'}</h3>
-      <p>Touche le bouton rouge et parle : ta première note s'écrit toute seule.</p></div>`;
+    if (sel !== 'all') h += `<p class="home-empty">Aucune note dans ce dossier. Touche le micro ou le crayon pour commencer.</p>`;
     return h;
   }
   const groups = [];
@@ -381,9 +370,8 @@ function padsHtml(sel, counts) {
   }).join('');
   return `<div class="pads">${pads}</div>
     <div class="pad-row">
-      <button class="pill-btn ${sel === 'all' ? 'on' : ''}" data-act="filter" data-id="all">Tout <b>${counts.all}</b></button>
-      ${counts.none ? `<button class="pill-btn ${sel === 'none' ? 'on' : ''}" data-act="filter" data-id="none">Sans dossier <b>${counts.none}</b></button>` : ''}
-      <button class="pill-btn ghost" data-act="folder-new">${icon('plus')}Dossier</button></div>`;
+      ${sel !== 'all' ? `<button class="pill-btn" data-act="filter" data-id="all">Toutes les notes</button>` : ''}
+      <button class="pill-btn home-folders" data-act="nav" data-to="#/folders">${icon('folder')}Dossiers</button></div>`;
 }
 
 /* ---------- ligne de résumé sous le bonjour ---------- */
@@ -1325,7 +1313,7 @@ function applyTheme() {
   const t = db.settings.theme;
   document.documentElement.dataset.theme = t;
   const dark = t === 'dark' || (t === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
-  $('meta[name="theme-color"]').setAttribute('content', dark ? '#17191D' : '#EEF0F3');
+  $('meta[name="theme-color"]').setAttribute('content', '#0d2038');
 }
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 function updateBadge() {

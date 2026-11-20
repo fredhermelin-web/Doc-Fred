@@ -1,0 +1,239 @@
+/* Le Carnet de Fred 1.5 — Cabinet de Léonard & Galilée.
+   Habillage de l'accueil. Le formulaire de note reste blanc cassé.
+   Image locale pour un fonctionnement sans réseau. */
+
+:root {
+  --bg: #f3f0e9;
+  --surface: #fffdf8;
+  --surface-2: #f0ede5;
+  --surface-3: #e5ded2;
+  --ink: #172c46;
+  --ink-2: #496077;
+  --ink-3: #657687;
+  --line: #d9d0c0;
+  --rule: #e8e0d4;
+  --tint: #244f7c;
+  --accent: #d35349;
+  --accent-2: #b9433b;
+  --accent-soft: #f8e9dc;
+  --sand: #eee4d3;
+  --glow: rgba(194,153,85,.1);
+  --m1: #fffdf8; --m2: #f8f4ed; --m3: #f0eae0;
+  --metal: linear-gradient(155deg,var(--m1),var(--m2));
+  --chrome: linear-gradient(115deg,#0c294b,#365f91);
+  --sky: linear-gradient(180deg,#faf8f2,#f1ece3 450px);
+  --shadow-1: 0 2px 5px rgba(21,31,48,.06),0 12px 24px -16px rgba(11,32,54,.22);
+}
+
+/* Sur le cabinet, les textes et les cartes sont toujours clairs et lisibles,
+   quel que soit le thème système choisi dans les préférences. */
+#list[data-view="notes"] {
+  position: relative;
+  isolation: isolate;
+  background: #132036;
+}
+#list[data-view="notes"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg,rgba(7,16,32,.11),rgba(10,18,31,.16)),
+              url("atelier-leonard.jpg") center top / cover no-repeat;
+}
+#list[data-view="notes"] > .wrap {
+  position: relative;
+  z-index: 1;
+  --ink: #152b49;
+  --ink-2: #415a72;
+  --ink-3: #5e7488;
+  --line: #d7c6a9;
+  --surface: #fffcf6;
+  --surface-2: #f2ebdf;
+  --tint: #204e77;
+  color: var(--ink);
+}
+
+/* La gauche : cuir bleu nuit patiné, liseré de laiton, icônes claires. */
+#nav {
+  background:
+    radial-gradient(circle at 22% 18%,rgba(137,162,190,.08) 0 1px,transparent 1.4px) 0 0 / 5px 7px,
+    linear-gradient(102deg,rgba(255,255,255,.075),transparent 24%,rgba(0,0,0,.2) 95%),
+    linear-gradient(180deg,#132b48,#071d37 84%);
+  border-color: #a78548;
+  color: #ecf1f7;
+}
+#nav .brand { color: #d3b478; }
+#nav .nav-item { color: #dbe5ed; }
+#nav .nav-item:hover,#nav .nav-item.on { background: rgba(255,249,229,.13); color: #fff; }
+#nav .nav-item.on::after { background: #cba464; }
+#nav .fab { margin-top: 0; border-color: #fff7ed; }
+#nav .badge { background: #d45149; }
+
+/* Un petit cartouche ivoire qui laisse voir le vitrail lunaire. */
+#list[data-view="notes"] .vh {
+  margin: 0 0 14px;
+  padding: 14px 16px 13px;
+  border-radius: 19px;
+  border: 1px solid rgba(190,146,70,.8);
+  background: rgba(255,250,241,.94);
+  box-shadow: 0 8px 26px rgba(6,18,37,.21);
+  min-height: 103px;
+}
+#list[data-view="notes"] .vh::after { display: none; }
+#list[data-view="notes"] .vh-row { align-items: center; }
+#list[data-view="notes"] .eyebrow { font-size: 12px; color: #445e78; }
+#list[data-view="notes"] .vh h1 {
+  font: 780 34px/1.15 var(--sans);
+  letter-spacing: -.035em;
+  color: #112b4c;
+  text-shadow: none;
+  margin-top: 2px;
+}
+#list[data-view="notes"] .vh-actions { gap: 5px; }
+#list[data-view="notes"] .icon-btn.solid {
+  width: 37px; height: 37px;
+  background: rgba(255,253,248,.92);
+  color: #193c65;
+  border: 1px solid #decdb2;
+  box-shadow: none;
+}
+#list[data-view="notes"] .calendar-jump {
+  width: 51px !important; height: 51px !important;
+  border: 1.5px solid #b78a42 !important;
+  border-radius: 14px;
+}
+#list[data-view="notes"] .calendar-jump .ic { width: 26px; height: 26px; stroke-width: 1.9; }
+
+/* Dossiers : couleur légère, symboles musicaux, aucune courbe décorative. */
+#list[data-view="notes"] .pads { gap: 10px; margin-top: 0; }
+#list[data-view="notes"] .pad {
+  padding: 13px 13px 12px;
+  min-height: 136px;
+  border-radius: 18px;
+  border: 1px solid #b6cbe0;
+  background: rgba(230,242,252,.95);
+  box-shadow: 0 6px 18px rgba(12,30,50,.18);
+  color: #152b49;
+  animation: none;
+}
+#list[data-view="notes"] .pad:nth-child(2) {
+  background: rgba(241,245,246,.95);
+  border-color: #d0b982;
+}
+#list[data-view="notes"] .pad:nth-child(3) {
+  min-height: 110px;
+  background: rgba(255,249,239,.96);
+  border-color: #d6b471;
+}
+#list[data-view="notes"] .pad::before,#list[data-view="notes"] .pad::after { display: none; }
+#list[data-view="notes"] .pad-ic {
+  width: 39px; height: 39px;
+  border-radius: 11px;
+  background: rgba(42,88,132,.075);
+  border: 1px solid rgba(53,97,140,.14);
+  box-shadow: none;
+  color: #173957;
+}
+#list[data-view="notes"] .pad:nth-child(2) .pad-ic { background: #e8eef0; }
+#list[data-view="notes"] .pad:nth-child(3) .pad-ic { background: #f9ead2; color: #72552c; border-color: #ead9b9; }
+#list[data-view="notes"] .pad-ic .ic { width: 27px; height: 27px; stroke-width: 1.6; }
+#list[data-view="notes"] .pad-n { color: #172e49; font-size: 29px; opacity: 1; }
+#list[data-view="notes"] .pad-name { color: #152b49; font-size: 16px; font-weight: 760; }
+#list[data-view="notes"] .pad-sub { color: #536a7b; font-size: 11px; letter-spacing: 0; }
+#list[data-view="notes"] .pad-led { display: none; }
+#list[data-view="notes"] .pad.on { outline: 2px solid #b99455; outline-offset: 1px; }
+
+#list[data-view="notes"] .pad-row { margin-top: 11px; }
+#list[data-view="notes"] .pad-row .pill-btn {
+  background: rgba(255,251,245,.96);
+  color: #173755;
+  border: 1px solid #d5bb8e;
+  box-shadow: 0 5px 15px rgba(10,28,44,.18);
+  border-radius: 14px;
+  height: 43px;
+  font-size: 14px;
+  padding: 0 15px;
+}
+#list[data-view="notes"] .home-folders .ic { width: 23px; height: 23px; }
+#list[data-view="notes"] .home-empty {
+  padding: 11px 14px;
+  border-radius: 12px;
+  background: rgba(255,252,245,.93);
+  color: #32485b;
+  font-size: 14px;
+}
+#list[data-view="notes"] .group-label { color: #fff5e4; text-shadow: 0 1px 3px #10213b; }
+#list[data-view="notes"] .card { background: rgba(255,252,246,.97); }
+
+/* Les écrans de saisie ne reprennent jamais l'image : confort d'écriture. */
+#detail {
+  --bg: #f6f2e9; --surface: #fffdf8; --surface-2: #f2eee6;
+  --ink: #172638; --ink-2: #4b5866; --ink-3: #6b7580;
+  --line: #e0d9ce; --rule: #e9e3da;
+  --tint: #285579;
+  background: #f6f2e9;
+  color: #172638;
+}
+#detail .ed-paper { background: #fffdf9; }
+#detail .ed-body { background: #fffdf9; color: #263645; }
+
+@media (max-width: 899.98px) {
+  /* POCO : rail latéral compact à la place du dock inférieur. */
+  #nav {
+    position: fixed;
+    top: 0; bottom: 0; left: 0; right: auto;
+    width: 67px; height: 100dvh;
+    padding: max(12px,var(--sat)) 3px max(12px,var(--sab));
+    border: 0; border-right: 2px solid #9c7946;
+    border-radius: 0;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 3px; overflow-y: auto;
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    box-shadow: 4px 0 18px rgba(2,16,34,.21);
+  }
+  #nav .brand { order: -2; display: grid; place-items: center; width: 43px; height: 43px; margin: 0 0 8px; }
+  #nav .brand .ic { width: 29px; height: 29px; }
+  #nav .fab {
+    order: -1; flex: 0 0 auto;
+    width: 51px; height: 51px;
+    margin: 0 0 14px;
+    box-shadow: 0 5px 14px rgba(9,14,27,.25);
+  }
+  #nav .fab .ic { width: 26px; height: 26px; }
+  #nav .nav-item { width: 59px; flex: 0 0 auto; padding: 9px 0 8px; border-radius: 11px; gap: 3px; font-size: 10.5px; }
+  #nav .nav-item .ic { width: 22px; height: 22px; }
+  #nav .nav-item.nav-desk { display: flex; }
+  #nav .nav-item.on::after { top: 50%; left: 1px; bottom: auto; transform: translateY(-50%); width: 3px; height: 23px; }
+
+  #list { margin-left: 67px; padding: calc(var(--sat) + 8px) 0 calc(var(--sab) + 24px); min-height: 100dvh; }
+  #list[data-view="notes"]::before {
+    position: fixed; inset: 0 0 0 67px;
+    background-position: center top;
+  }
+  #list > .wrap { padding-inline: 9px; }
+  #list[data-view="notes"] .vh { margin-top: clamp(62px,10.5dvh,95px); }
+  #list[data-view="notes"] .vh h1 { font-size: clamp(28px,7vw,34px); }
+  #list[data-view="notes"] .pad-name { font-size: clamp(13px,3.7vw,16px); }
+  #list[data-view="notes"] .pad-sub { font-size: 10.5px; }
+  #list[data-view="notes"] .pad { min-height: 133px; padding: 12px 10px; }
+  #list[data-view="notes"] .pad:nth-child(3) { min-height: 103px; }
+  #list[data-view="notes"] .pad-ic { width: 35px; height: 35px; }
+  #list[data-view="notes"] .pad-ic .ic { width: 25px; height: 25px; }
+  #list[data-view="notes"] .pad-n { top: 12px; right: 11px; font-size: 27px; }
+
+  #toasts { left: 77px; right: 10px; bottom: calc(var(--sab) + 16px); }
+  .fab { margin-top: 0; }
+}
+
+@media (min-width: 900px) {
+  #nav { border-right: 2px solid #9c7946; }
+  #nav .brand { color: #d3b478; }
+  #nav .nav-item { color: #dbe5ed; }
+  #nav .nav-item.on { background: rgba(255,249,229,.13); color: #fff; }
+  #list[data-view="notes"]::before { position: absolute; background-position: center top; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #list[data-view="notes"] .pad { animation: none; }
+}

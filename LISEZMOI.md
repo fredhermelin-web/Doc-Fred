@@ -1,5 +1,31 @@
 # Le Carnet de Fred — mode d'emploi
 
+## Mise à jour 1.5.0 — Cabinet Léonard & Galilée (GitHub Pages)
+
+Cette version reprend exactement la même application et les mêmes données locales.
+Elle change la présentation de l'accueil : image Léonard/Galilée, rail de navigation
+en cuir bleu nuit sur téléphone, trois dossiers et calendrier. Les anciens boutons
+« Cours du jour » et « Tâche rapide » ont disparu de l'accueil, mais les fonctions
+de note, dictée, tâches, agenda et dossiers sont toujours présentes.
+
+Pour mettre à jour **l'installation existante** sur
+`https://fredhermelin-web.github.io/Doc-Fred/` :
+
+1. Sur le téléphone, si tu as commencé à écrire, effectue d'abord une sauvegarde
+   dans **Dossiers → Sauvegarde → Enregistrer**.
+2. Sur le PC, décompresse ce ZIP et ouvre le dossier **Carnet de Fred**.
+3. Sur GitHub, ouvre le dépôt **Doc-Fred** (branche `main`) → **Add file → Upload files**.
+4. Dépose **le contenu du dossier** (`index.html`, `app.js`, `atelier.css`,
+   `atelier-leonard.jpg`, `icons/`, etc.), pas le ZIP ni le dossier parent.
+5. Valide **Commit changes** et attends quelques instants. Sur le POCO, rouvre
+   le carnet et accepte « Actualiser » si le bandeau de mise à jour apparaît.
+
+**Important :** les notes et tâches existantes restent sur chaque appareil.
+Une éventuelle tâche d'essai déjà présente peut être supprimée manuellement
+dans l'onglet **Tâches** ; aucune donnée existante n'est effacée automatiquement.
+
+---
+
 Le carnet est une application web installable. On la met en ligne une fois sur un hébergeur gratuit, puis on l'installe sur le téléphone et sur le PC. Aucun compte dans l'appli, aucune publicité. Les notes restent dans chaque appareil.
 
 ## 1. Mettre le carnet en ligne (une seule fois, environ 5 minutes)
