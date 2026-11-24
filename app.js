@@ -150,7 +150,9 @@ function spokenToText(t) {
 const DEFAULT_SETTINGS = { theme: 'auto', filter: 'all', taskFilter: 'all', lastFolder: 'f-tes', lastBackup: 0, installHidden: false,
   gClientId: '', syncOn: false, syncLast: 0 };
 // palette sans rose : bleu nuit de scène, vert-bleu, ocre, rouge brique, vert, ardoise, orange, brun
-const PALETTE = ['#3D5AC4', '#1F8A80', '#C98A1B', '#C8452C', '#4C9A3A', '#4A6378', '#E07A1F', '#7A6A5A'];
+// 1.6.1 : teintes « cabinet de curiosités » (indigo, améthyste, or ancien, saphir…), plus de vert
+const PALETTE = ['#46399E', '#8A4FB8', '#B5832A', '#C8452C', '#2E5FA3', '#4A6378', '#E07A1F', '#7A6A5A'];
+const OLD_DEFAULTS = { 'f-tes': ['#3D5AC4', '#46399E'], 'f-pda': ['#1F8A80', '#8A4FB8'], 'f-perso': ['#C98A1B', '#B5832A'] };
 const OLD_PINK = '#C2417B';
 // icônes de dossiers (dessins au trait, plus d'emojis)
 const ICONS = ['drumkit', 'drum', 'sticks', 'music', 'grad', 'notes', 'user', 'users', 'spark', 'shapes', 'work', 'bolt', 'home', 'cal', 'mic', 'folder'];
@@ -177,9 +179,9 @@ function seed() {
   return {
     v: 1,
     folders: [
-      { id: 'f-tes', name: 'Tous en scène', color: '#3D5AC4', icon: 'drumkit', order: 0, updated: now },
-      { id: 'f-pda', name: 'Pôle des Arts', color: '#1F8A80', icon: 'drum', order: 1, updated: now },
-      { id: 'f-perso', name: 'Perso', color: '#C98A1B', icon: 'user', order: 2, updated: now },
+      { id: 'f-tes', name: 'Tous en scène', color: '#46399E', icon: 'drumkit', order: 0, updated: now },
+      { id: 'f-pda', name: 'Pôle des Arts', color: '#8A4FB8', icon: 'drum', order: 1, updated: now },
+      { id: 'f-perso', name: 'Perso', color: '#B5832A', icon: 'user', order: 2, updated: now },
     ],
     tombs: {},
     // Aucun exemple imposé au premier démarrage ; les données déjà enregistrées restent intactes.
@@ -196,8 +198,12 @@ function fix(d) {
   d.tombs = d.tombs && typeof d.tombs === 'object' ? d.tombs : {};   // traces des suppressions (pour la synchro)
   for (const f of d.folders) {
     if (f.color === OLD_PINK) { f.color = PALETTE[0]; f.updated = Date.now(); }
+    // v1.6.1 : les trois dossiers d'origine passent aux nouvelles teintes (une seule fois, seulement s'ils avaient encore l'ancienne)
+    const od = OLD_DEFAULTS[f.id];
+    if (!d.settings.v161 && od && String(f.color).toLowerCase() === od[0].toLowerCase()) { f.color = od[1]; f.updated = Date.now(); }
     if (!f.icon) f.icon = { 'f-tes': 'spark', 'f-pda': 'shapes', 'f-perso': 'user' }[f.id] || EMO2IC[f.emoji] || 'folder';
   }
+  d.settings.v161 = true;
   if (!d.settings.v3) { d.settings.v3 = true; if (d.settings.theme === 'auto') d.settings.theme = 'light'; }   // v1.3 : clair par défaut
   const now = Date.now(), lim = now - 30 * 864e5;            // corbeille : 30 jours
   d.notes = d.notes.filter(n => { if (n.deleted && n.deleted <= lim) { d.tombs[n.id] = now; return false; } return true; });

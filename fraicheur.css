@@ -277,31 +277,5 @@ mark { background: #fbeec6; }
   opacity: 1;
 }
 
-/* La bougie du cabinet : un halo jaune doux qui vacille à peine, en bas à droite. */
-#list[data-view="notes"]::after {
-  content: ""; position: fixed; z-index: -1; pointer-events: none;
-  right: -70px; bottom: calc(min(52vh, 430px) - 120px); width: 320px; height: 320px;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 207, 100, .80) 0, rgba(255, 214, 125, .42) 28%, rgba(255, 226, 160, .16) 52%, transparent 72%);
-  animation: bougie 5.5s ease-in-out infinite alternate;
-}
-@keyframes bougie {
-  0%   { opacity: .72; transform: scale(.96); }
-  35%  { opacity: 1;   transform: scale(1.03); }
-  60%  { opacity: .82; transform: scale(.99); }
-  100% { opacity: .95; transform: scale(1.04); }
-}
-@media (min-width: 900px) { #list[data-view="notes"]::after { position: absolute; } }
-
-/* Un rayon de soleil doré qui traverse le vitrail de l'en-tête. */
-#list[data-view="notes"] .vh::before {
-  content: ""; position: absolute; z-index: -1; pointer-events: none; inset: -30% -10%;
-  background:
-    linear-gradient(112deg, transparent 38%, rgba(255, 214, 128, .30) 50%, rgba(255, 232, 170, .12) 58%, transparent 68%),
-    radial-gradient(260px 160px at 86% 34%, rgba(255, 220, 140, .42), transparent 70%);
-  mix-blend-mode: soft-light;
-}
-:root[data-theme="dark"] #list[data-view="notes"]::after { opacity: .5; animation: none; }
-@media (prefers-reduced-motion: reduce) {
-  #list[data-view="notes"]::after { animation: none; }
-  .pad.on::after { animation: none; }
-}
+:root[data-theme="dark"] #list[data-view="notes"]::before { opacity: .22; }
+@media (prefers-reduced-motion: reduce) { .pad.on::after { animation: none; } }
