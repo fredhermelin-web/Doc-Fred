@@ -1,0 +1,251 @@
+/* Le Carnet de Fred 1.6 — « Ciel d'observatoire ».
+   Un seul habillage, clair et frais, pour tous les écrans : blanc bleuté,
+   bleu ciel, filets de laiton. L'illustration de Léonard & Galilée devient
+   un cyanotype (ciel.jpg) qui sert d'en-tête.
+   Cette feuille remplace atelier.css et reprend la main sur coast.css. */
+
+@font-face {
+  font-family: "Lora"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("lora.woff") format("woff");
+}
+@font-face {
+  font-family: "Lora"; font-style: italic; font-weight: 400 700; font-display: swap;
+  src: url("lora-italic.woff") format("woff");
+}
+
+:root {
+  --bg: #f2f8fc;
+  --surface: #ffffff;
+  --surface-2: #eaf3f9;
+  --surface-3: #dbeaf3;
+  --ink: #12334d;
+  --ink-2: #46667c;
+  --ink-3: #6d8798;
+  --line: #d3e4ee;
+  --rule: #e2eef5;
+  --tint: #226fa3;
+  --accent: #e0634f;
+  --accent-2: #c24c3a;
+  --accent-soft: #e3f1f9;
+  --sand: #f6efe0;
+  --brass: #b98a3d;
+  --brass-soft: #e6d3a8;
+  --glow: rgba(120, 190, 230, .16);
+  --sky: radial-gradient(900px 420px at 100% 0%, rgba(150, 205, 238, .30), transparent 70%),
+         linear-gradient(180deg, #f6fbfe 0%, #f2f8fc 520px);
+  --serif: "Lora", "Iowan Old Style", Georgia, "Palatino Linotype", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --shadow-1: 0 1px 2px rgba(18, 63, 100, .05), 0 12px 26px -18px rgba(18, 74, 120, .30);
+  --shadow-2: 0 24px 60px -20px rgba(15, 60, 100, .38);
+  --toast-bg: #12334d;
+  --toast-ink: #f2f8fc;
+  --r: 20px;
+  color-scheme: light;
+}
+body { background: var(--sky); color: var(--ink); }
+#detail { background: var(--bg); color: var(--ink); }
+
+/* ---------- en-têtes : le cyanotype, fondu dans la page ---------- */
+.vh {
+  position: relative; isolation: isolate; overflow: hidden;
+  margin: 8px 0 6px; padding: 18px 18px 16px;
+  min-height: 108px;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.82) 42%, rgba(255,255,255,.30) 100%),
+    url("ciel.jpg") right 30% / cover no-repeat;
+  box-shadow: var(--shadow-1);
+}
+.vh::after {   /* filet de laiton sous le titre */
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  left: 18px; bottom: 0; width: 72px; height: 3px; border-radius: 4px 4px 0 0;
+  background: linear-gradient(90deg, var(--brass), var(--brass-soft));
+}
+.vh h1 {
+  font: 600 clamp(28px, 7.6vw, 34px)/1.12 var(--serif);
+  letter-spacing: -.012em; color: var(--ink); text-shadow: none;
+}
+.vh h1 em { font: italic 500 1em/1.1 var(--serif); color: var(--tint); letter-spacing: 0; background: none; -webkit-text-fill-color: currentColor; animation: none; }
+.eyebrow { color: var(--ink-2); font: 600 12.5px/1.5 var(--sans); letter-spacing: .03em; }
+.stats { color: var(--ink-2); }
+.stats b { color: var(--ink); }
+.vh .icon-btn.solid {
+  background: rgba(255,255,255,.92); border: 1px solid #cfe2ee; color: var(--tint);
+  box-shadow: 0 4px 12px -6px rgba(20, 90, 140, .3);
+}
+.vh .icon-btn:hover { background: #fff; }
+
+/* Accueil : l'en-tête est plus haut, pour laisser voir le vitrail. */
+#list[data-view="notes"] .vh {
+  min-height: 154px; padding: 20px 18px 18px;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.55) 38%, rgba(255,255,255,0) 72%),
+    linear-gradient(0deg, rgba(242,248,252,.55), rgba(242,248,252,0) 45%),
+    url("ciel.jpg") right 24% / cover no-repeat;
+}
+#list[data-view="notes"] .vh h1 { font-size: clamp(34px, 9.5vw, 42px); }
+#list[data-view="notes"] .vh .eyebrow { color: var(--ink); }
+#list[data-view="notes"] .vh .calendar-jump { border-color: var(--brass-soft); }
+
+/* ---------- rubriques, boutons, puces ---------- */
+.sec { color: var(--ink-3); font: 700 11.5px/1.4 var(--sans); letter-spacing: .12em; }
+.sec::after { background: linear-gradient(90deg, var(--brass-soft), transparent); }
+.group-label { color: var(--ink-2); font-weight: 700; text-shadow: none; }
+.link { color: var(--tint); }
+.icon-btn.solid, .pill-btn, .act-btn, .chip, .btn, .seg, .quick button {
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-1); color: var(--ink);
+}
+.icon-btn:hover, .pill-btn:hover, .act-btn:hover { background: var(--surface-2); }
+.pill-btn.on, .chip.on, .cal-wd button.on {
+  background: var(--tint); color: #fff; border-color: var(--tint);
+  box-shadow: 0 8px 18px -10px rgba(25, 100, 160, .6);
+}
+.pill-btn.on b, .chip.on b { color: rgba(255,255,255,.85); }
+.pill-btn.ghost { background: transparent; border: 1px dashed var(--line); box-shadow: none; }
+.btn.primary, .round.primary { background: var(--tint); color: #fff; border: 1px solid var(--tint); box-shadow: 0 10px 22px -12px rgba(25, 100, 160, .65); }
+.btn.danger, .btn.ghost { background: transparent; border-color: transparent; box-shadow: none; }
+.pill.on { border-color: var(--tint); background: var(--accent-soft); }
+.act-btn .ic { color: var(--tint); }
+.act-btn:first-child { background: linear-gradient(130deg, #e3f1f9, #fff); }
+.act-btn:last-child  { background: linear-gradient(130deg, #f8f0de, #fff); }
+.act-btn:last-child .ic { color: var(--brass); }
+
+/* ---------- accueil : trois dossiers, clairs, un filet de couleur chacun ---------- */
+.pads { gap: 11px; margin-top: 14px; }
+#list[data-view="notes"] .pads { margin-top: 14px; }
+.pad, #list[data-view="notes"] .pad {
+  position: relative; overflow: hidden; min-height: 128px; padding: 14px 14px 13px;
+  border-radius: 22px;
+  background: linear-gradient(160deg, #fff 55%, color-mix(in srgb, var(--c) 9%, #fff));
+  border: 1px solid color-mix(in srgb, var(--c) 18%, var(--line));
+  box-shadow: inset 0 3px 0 color-mix(in srgb, var(--c) 72%, #fff), var(--shadow-1);
+  color: var(--ink);
+  animation: rise .34s var(--ease) calc(var(--i) * 45ms) both;
+}
+.pad:nth-child(3), #list[data-view="notes"] .pad:nth-child(3) { min-height: 104px; }
+.pad::before, .pad::after, #list[data-view="notes"] .pad::before, #list[data-view="notes"] .pad::after { display: none; }
+.pad-ic, #list[data-view="notes"] .pad-ic {
+  width: 42px; height: 42px; border-radius: 14px;
+  color: color-mix(in srgb, var(--c) 82%, var(--ink));
+  background: color-mix(in srgb, var(--c) 13%, #fff);
+  border: 1px solid color-mix(in srgb, var(--c) 20%, transparent); box-shadow: none;
+}
+.pad-ic .ic, #list[data-view="notes"] .pad-ic .ic { width: 25px; height: 25px; stroke-width: 1.7; }
+.pad-n, #list[data-view="notes"] .pad-n { font: 500 30px/1 var(--serif); color: color-mix(in srgb, var(--c) 80%, var(--ink)); opacity: .9; }
+.pad-name, #list[data-view="notes"] .pad-name { color: var(--ink); font: 700 16px/1.2 var(--sans); }
+.pad-sub, #list[data-view="notes"] .pad-sub { color: var(--ink-3); font-size: 12px; letter-spacing: 0; }
+.pad-led, #list[data-view="notes"] .pad-led { display: none; }
+.pad.on, #list[data-view="notes"] .pad.on { outline: 2px solid var(--tint); outline-offset: 1px; }
+#list[data-view="notes"] .pad-row .pill-btn { height: 42px; border-radius: 14px; font-size: 14px; background: #fff; color: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow-1); }
+#list[data-view="notes"] .home-empty { background: #fff; border: 1px solid var(--line); color: var(--ink-2); border-radius: 14px; padding: 12px 14px; }
+#list[data-view="notes"] > .wrap { color: var(--ink); }
+
+/* ---------- cartes de notes, listes, calendrier ---------- */
+.card, .today, .tlist, .flist, .group, .cal, .qa, #list[data-view="notes"] .card {
+  background: var(--surface); border-color: var(--line); box-shadow: var(--shadow-1);
+}
+.card { border-radius: 20px; }
+.card h3 { color: var(--ink); }
+.card-top { color: var(--ink-3); }
+.card::before { top: 16px; bottom: 16px; width: 4px; border-radius: 0 4px 4px 0; }
+.tag { background: var(--surface-2); }
+.today-head h2 span { color: var(--accent); }
+.qa:focus-within, .input:focus { border-color: var(--tint); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input { background: var(--surface-2); }
+.femo { color: var(--ink); background: color-mix(in srgb, var(--c) 14%, #fff); box-shadow: none; }
+.folder-pill { background: var(--surface-2); box-shadow: none; border: 1px solid var(--line); }
+mark { background: #fbeec6; }
+:focus-visible { outline-color: var(--tint); outline-offset: 3px; }
+
+.cal { padding: 8px 10px 12px; border-radius: 24px; }
+.cal-title { font: 600 21px/1.2 var(--serif); letter-spacing: -.005em; }
+.cal-wd button { color: var(--ink-3); }
+.cal-grid { grid-auto-rows: 50px; row-gap: 2px; }
+.day { min-height: 0; height: 50px; padding: 0; justify-content: center; gap: 3px; border-radius: 14px; }
+.day .dn { width: 32px; height: 32px; line-height: 32px; font-size: 15px; }
+.day.today .dn { color: var(--tint); box-shadow: inset 0 0 0 1.5px var(--tint); }
+.day.sel { background: var(--surface-2); }
+.day.sel .dn { background: var(--tint); color: #fff; box-shadow: none; }
+.day.wdon { background: var(--sand); }
+.day.we:not(.has) .dn { opacity: .55; }
+
+/* ---------- l'éditeur reste un papier blanc, posé sur le ciel ---------- */
+.ed-bar { background: var(--surface); }
+.ed-paper { background: #fff; margin: 12px auto; border-radius: 22px; padding: 23px 24px 35px; box-shadow: var(--shadow-1); }
+.ed-paper::before { display: none; }
+.ed-body { background-image: none; line-height: 1.72; color: #1f3b52; }
+.ed-dock { background: color-mix(in srgb, var(--surface) 92%, transparent); border-color: var(--line); }
+.sheet { background: var(--surface); }
+.scrim { background: rgba(14, 50, 80, .45); }
+
+/* ---------- navigation : une barre flottante claire, bouton REC corail ---------- */
+.fab, .mic {
+  border: 4px solid #fff;
+  background: linear-gradient(145deg, #ee8470, #d4553f) padding-box;
+  box-shadow: 0 12px 26px -10px rgba(190, 70, 50, .65), 0 3px 8px rgba(20, 80, 130, .14);
+  color: #fff;
+}
+.fab::before, .fab::after, .mic::before, .mic::after { border-color: #e2705b; }
+.badge { background: var(--accent); }
+
+@media (max-width: 899.98px) {
+  .wrap { padding-inline: 14px; }
+  #nav {
+    left: 12px; right: 12px; bottom: calc(var(--sab) + 10px); height: 68px; padding: 0;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(18px) saturate(1.3); -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    border: 1px solid var(--line); border-bottom: 2px solid var(--brass-soft); border-radius: 26px;
+    box-shadow: 0 18px 40px -18px rgba(15, 70, 115, .45);
+  }
+  .nav-item { color: var(--ink-3); }
+  .nav-item.on { color: var(--tint); }
+  .nav-item.on::after { background: var(--brass); }
+  .fab { margin-top: -28px; box-shadow: 0 0 0 5px var(--bg), 0 13px 26px -9px rgba(190, 70, 50, .55); }
+  #list { padding-bottom: calc(120px + var(--sab)); }
+  .ed-paper { margin: 8px 10px 15px; padding: 20px 17px 30px; }
+}
+
+@media (min-width: 900px) {
+  #nav { background: #fff; border-right: 1px solid var(--line); box-shadow: 6px 0 24px -18px rgba(15, 70, 115, .4); }
+  #nav .brand { color: var(--brass); background: var(--sand); border-radius: 14px; }
+  .nav-item { color: var(--ink-3); }
+  .nav-item:hover { color: var(--ink); background: var(--surface-2); }
+  .nav-item.on { color: var(--tint); background: var(--accent-soft); }
+  .nav-item.on::after { background: var(--brass); }
+  #list { background: transparent; border-right: 1px solid var(--line); }
+  .ed-paper { max-width: 800px; margin-top: 18px; }
+}
+
+/* ---------- mode sombre (si tu le choisis) : bleu nuit doux, jamais noir ---------- */
+:root[data-theme="dark"] {
+  --bg: #0f2538; --surface: #17344a; --surface-2: #1f4259; --surface-3: #29506a;
+  --ink: #eaf4fb; --ink-2: #b7d0e1; --ink-3: #8fb0c6; --line: #2c5470; --rule: #25485f;
+  --tint: #7cc4ee; --accent: #f08a74; --accent-soft: #1f4a63; --sand: #3a4a4a; --brass: #e1b865; --brass-soft: #6b5a35;
+  --sky: radial-gradient(800px 400px at 100% 0%, #1b4a68, transparent 75%), #0f2538;
+  --shadow-1: 0 2px 10px rgba(0,0,0,.18); --toast-bg: #eaf4fb; --toast-ink: #12334d; color-scheme: dark;
+}
+:root[data-theme="dark"] .vh,
+:root[data-theme="dark"] #list[data-view="notes"] .vh {
+  background: linear-gradient(90deg, rgba(15,37,56,.94), rgba(15,37,56,.6) 60%, rgba(15,37,56,.25)), url("ciel.jpg") right 30% / cover no-repeat;
+}
+:root[data-theme="dark"] .vh .icon-btn.solid { background: rgba(23,52,74,.9); border-color: #2c5470; color: var(--tint); }
+:root[data-theme="dark"] .pad, :root[data-theme="dark"] #list[data-view="notes"] .pad { background: linear-gradient(160deg, var(--surface) 55%, color-mix(in srgb, var(--c) 14%, var(--surface))); }
+:root[data-theme="dark"] .pad-ic, :root[data-theme="dark"] #list[data-view="notes"] .pad-ic { background: color-mix(in srgb, var(--c) 22%, var(--surface)); color: #eaf4fb; }
+:root[data-theme="dark"] .pad-n, :root[data-theme="dark"] #list[data-view="notes"] .pad-n { color: #eaf4fb; }
+:root[data-theme="dark"] #nav { background: rgba(23,52,74,.9); }
+:root[data-theme="dark"] .ed-paper, :root[data-theme="dark"] .ed-body { background: var(--surface); color: var(--ink); }
+:root[data-theme="dark"] .pill-btn.on, :root[data-theme="dark"] .chip.on, :root[data-theme="dark"] .btn.primary { color: #0f2538; }
+
+@media (prefers-reduced-motion: reduce) { .pad { animation: none; } }
+
+/* Accueil : le bureau du cabinet affleure en bas de page, très pâle, derrière le contenu. */
+#list[data-view="notes"]::before {
+  content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: min(52vh, 430px); z-index: -1; pointer-events: none;
+  background: url("ciel-bas.jpg") center bottom / cover no-repeat;
+  opacity: .5;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 55%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 55%);
+}
+@media (min-width: 900px) { #list[data-view="notes"]::before { position: absolute; } }
+:root[data-theme="dark"] #list[data-view="notes"]::before { opacity: .22; }

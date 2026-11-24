@@ -5,7 +5,7 @@
 'use strict';
 (() => {
 
-const VERSION = '1.5.1';            // à changer en même temps que dans sw.js
+const VERSION = '1.6.0';            // à changer en même temps que dans sw.js
 const KEY = 'carnet:data';
 const IS_ANDROID = /Android/i.test(navigator.userAgent);
 

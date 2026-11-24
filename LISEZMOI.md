@@ -1,5 +1,21 @@
 # Le Carnet de Fred — mode d'emploi
 
+## Mise à jour 1.6.0 — « Ciel d'observatoire » (thème clair et frais)
+
+**Nouveauté 1.6.0 :** un seul habillage pour tous les écrans, clair et frais : blanc bleuté,
+bleu ciel, filets de laiton, titres en Lora (police à empattements incluse, fonctionne hors connexion).
+L'illustration de Léonard et Galilée devient un cyanotype bleu et blanc, en en-tête et en fond d'accueil.
+La barre de navigation redevient une barre flottante en bas de l'écran (plus de rail latéral),
+ce qui libère toute la largeur du téléphone. Le bouton rouge d'enregistrement ne change pas.
+
+Les fonctions, les notes, les tâches et les sauvegardes sont strictement inchangées.
+Fichiers nouveaux : `fraicheur.css`, `ciel.jpg`, `ciel-bas.jpg`, `lora.woff`, `lora-italic.woff`.
+Fichiers retirés : `atelier.css`, `atelier-leonard.jpg` (tu peux les supprimer dans GitHub).
+Mise à jour : mêmes étapes que ci-dessous (déposer **le contenu du dossier** dans le dépôt `Doc-Fred`).
+Sauvegarde d'abord : **Dossiers → Sauvegarde → Enregistrer**.
+
+---
+
 ## Mise à jour 1.5.1 — Cabinet Léonard & Galilée (GitHub Pages)
 
 **Nouveauté 1.5.1 :** nouvelle icône de l'application, bleu nuit et laiton :
