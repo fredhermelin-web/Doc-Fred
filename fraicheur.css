@@ -249,3 +249,59 @@ mark { background: #fbeec6; }
 }
 @media (min-width: 900px) { #list[data-view="notes"]::before { position: absolute; } }
 :root[data-theme="dark"] #list[data-view="notes"]::before { opacity: .22; }
+
+/* ---------- 1.6.1 : dossier choisi impossible à rater, même en plein jour ---------- */
+/* Le dossier choisi devient un aplat plein de sa couleur, texte blanc, coche blanche et liseré de laiton ;
+   les autres s'effacent. Contraste fort pour le soleil des salles de classe. */
+.pads:has(.pad.on) .pad, #list[data-view="notes"] .pads:has(.pad.on) .pad { animation: none; transition: opacity .2s, transform .2s var(--ease), box-shadow .2s, filter .2s; }
+.pads:has(.pad.on) .pad:not(.on), #list[data-view="notes"] .pads:has(.pad.on) .pad:not(.on) { opacity: .55; filter: saturate(.6); }
+.pad.on, #list[data-view="notes"] .pad.on {
+  outline: none;
+  transform: translateY(-2px);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--c) 86%, #0b2540), color-mix(in srgb, var(--c) 70%, #0b2540));
+  border: 3px solid var(--brass-soft);
+  box-shadow: 0 0 0 3px var(--brass),
+              0 0 0 7px rgba(236, 190, 95, .35),
+              0 18px 30px -12px rgba(222, 166, 60, .75);
+  transition: transform .2s var(--ease), box-shadow .2s, opacity .2s;
+}
+.pad.on .pad-name, #list[data-view="notes"] .pad.on .pad-name { color: #fff; }
+.pad.on .pad-sub, #list[data-view="notes"] .pad.on .pad-sub { color: rgba(255,255,255,.92); }
+.pad.on .pad-n, #list[data-view="notes"] .pad.on .pad-n { color: #fff; opacity: 1; }
+.pad.on .pad-ic, #list[data-view="notes"] .pad.on .pad-ic { background: #fff; border-color: #fff; color: color-mix(in srgb, var(--c) 85%, #0b2540); }
+.pad.on::after, #list[data-view="notes"] .pad.on::after {
+  content: ""; display: block; position: absolute; z-index: 2;
+  top: auto; left: auto; right: 12px; bottom: 11px; width: 30px; height: 30px; border-radius: 50%;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232a5d2e' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 12.5l4.2 4.2L18.5 7.5'/%3E%3C/svg%3E") center / 19px no-repeat;
+  border: 2px solid var(--brass); box-shadow: 0 3px 8px rgba(10, 40, 70, .4);
+  opacity: 1;
+}
+
+/* La bougie du cabinet : un halo jaune doux qui vacille à peine, en bas à droite. */
+#list[data-view="notes"]::after {
+  content: ""; position: fixed; z-index: -1; pointer-events: none;
+  right: -70px; bottom: calc(min(52vh, 430px) - 120px); width: 320px; height: 320px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 207, 100, .80) 0, rgba(255, 214, 125, .42) 28%, rgba(255, 226, 160, .16) 52%, transparent 72%);
+  animation: bougie 5.5s ease-in-out infinite alternate;
+}
+@keyframes bougie {
+  0%   { opacity: .72; transform: scale(.96); }
+  35%  { opacity: 1;   transform: scale(1.03); }
+  60%  { opacity: .82; transform: scale(.99); }
+  100% { opacity: .95; transform: scale(1.04); }
+}
+@media (min-width: 900px) { #list[data-view="notes"]::after { position: absolute; } }
+
+/* Un rayon de soleil doré qui traverse le vitrail de l'en-tête. */
+#list[data-view="notes"] .vh::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none; inset: -30% -10%;
+  background:
+    linear-gradient(112deg, transparent 38%, rgba(255, 214, 128, .30) 50%, rgba(255, 232, 170, .12) 58%, transparent 68%),
+    radial-gradient(260px 160px at 86% 34%, rgba(255, 220, 140, .42), transparent 70%);
+  mix-blend-mode: soft-light;
+}
+:root[data-theme="dark"] #list[data-view="notes"]::after { opacity: .5; animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  #list[data-view="notes"]::after { animation: none; }
+  .pad.on::after { animation: none; }
+}

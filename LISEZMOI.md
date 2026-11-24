@@ -1,5 +1,14 @@
 # Le Carnet de Fred — mode d'emploi
 
+## Mise à jour 1.6.1 — dossier choisi bien visible, lumière de bougie, nouvelle icône
+
+- **Dossier sélectionné :** il devient un aplat plein de sa couleur, texte blanc, grosse coche et liseré de laiton ;
+  les autres dossiers s'effacent. Lisible même en plein soleil.
+- **Ambiance :** un halo doré de bougie vacille doucement en bas de l'accueil, et un rayon de soleil traverse le vitrail.
+- **Nouvelle icône** bleu ciel et laiton (`icons/*-ciel.png`). Android garde souvent l'ancienne icône d'une appli déjà
+  installée : pour la voir, sauvegarde (Dossiers → Sauvegarde → Enregistrer), désinstalle l'appli, réinstalle-la
+  depuis Chrome, puis Importer la sauvegarde.
+
 ## Mise à jour 1.6.0 — « Ciel d'observatoire » (thème clair et frais)
 
 **Nouveauté 1.6.0 :** un seul habillage pour tous les écrans, clair et frais : blanc bleuté,
