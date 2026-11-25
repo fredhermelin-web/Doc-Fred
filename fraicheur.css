@@ -86,7 +86,6 @@ body { background: var(--sky); color: var(--ink); }
 }
 #list[data-view="notes"] .vh h1 { font-size: clamp(34px, 9.5vw, 42px); }
 #list[data-view="notes"] .vh .eyebrow { color: var(--ink); }
-#list[data-view="notes"] .vh .calendar-jump { border-color: var(--brass-soft); }
 
 /* ---------- rubriques, boutons, puces ---------- */
 .sec { color: var(--ink-3); font: 700 11.5px/1.4 var(--sans); letter-spacing: .12em; }
@@ -290,3 +289,17 @@ mark { background: #fbeec6; }
 .card-trash .ic { width: 20px; height: 20px; color: currentColor; stroke-width: 1.8; }
 .card-trash:hover, .card-trash:focus-visible { background: color-mix(in srgb, var(--accent) 12%, #fff); color: var(--accent-2); }
 .card-trash:active { transform: scale(.9); background: color-mix(in srgb, var(--accent) 22%, #fff); color: var(--accent-2); }
+
+/* ---------- 1.6.3 : une plume dorée sous le prénom, le coin du vitrail reste libre ---------- */
+.write-pill {
+  display: inline-grid; place-items: center; margin-top: 10px;
+  width: 54px; height: 54px; padding: 0; border-radius: 50%;
+  background: rgba(255,255,255,.95); color: var(--tint);
+  border: 1.5px solid var(--brass-soft);
+  box-shadow: 0 8px 18px -9px rgba(20, 90, 140, .5);
+  transition: transform .15s, background .15s;
+}
+.write-pill .ic { width: 41px; height: 41px; }
+.write-pill:hover { background: #fff; }
+.write-pill:active { transform: scale(.93); }
+:root[data-theme="dark"] .write-pill { background: rgba(23,52,74,.92); color: var(--tint); border-color: var(--brass-soft); }

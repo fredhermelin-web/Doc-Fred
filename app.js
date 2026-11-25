@@ -5,7 +5,7 @@
 'use strict';
 (() => {
 
-const VERSION = '1.6.2';            // à changer en même temps que dans sw.js
+const VERSION = '1.6.3';            // à changer en même temps que dans sw.js
 const KEY = 'carnet:data';
 const IS_ANDROID = /Android/i.test(navigator.userAgent);
 
@@ -334,10 +334,9 @@ function viewNotes() {
   const now = new Date();
   let h = `<header class="vh"><div class="vh-row"><div>
       <p class="eyebrow">${cap(fmt(now, { weekday: 'long', day: 'numeric', month: 'long' }))}</p>
-      <h1>Fred</h1></div>
-      <div class="vh-actions">${syncBtn()}
-      <button class="icon-btn solid calendar-jump" data-act="nav" data-to="#/calendar" aria-label="Ouvrir le calendrier" title="Ouvrir le calendrier">${icon('cal')}</button>
-      <button class="icon-btn solid" data-act="new-note" aria-label="Écrire une note" title="Écrire une note (Alt+N)">${icon('pen')}</button></div>
+      <h1>Fred</h1>
+      <button class="write-pill" data-act="new-note" aria-label="Écrire une note" title="Écrire une note (Alt+N)">${icon('quill')}</button></div>
+      <div class="vh-actions">${syncBtn()}</div>
     </div></header>`;
 
   h += padsHtml(sel, counts);

@@ -1,5 +1,10 @@
 # Le Carnet de Fred — mode d'emploi
 
+## Mise à jour 1.6.3 — accueil épuré
+
+Le bouton calendrier du haut disparaît (l'Agenda est déjà dans la barre du bas) et le crayon devient
+une plume dorée sous le prénom (touche-la pour écrire une note), pour laisser le vitrail dégagé. Alt+N fonctionne toujours.
+
 ## Mise à jour 1.6.2 — poubelle sur chaque note
 
 Chaque note de la liste a une petite poubelle en haut à droite. Un appui l'envoie à la corbeille
