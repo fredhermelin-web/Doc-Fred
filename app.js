@@ -5,7 +5,7 @@
 'use strict';
 (() => {
 
-const VERSION = '1.6.1';            // à changer en même temps que dans sw.js
+const VERSION = '1.6.2';            // à changer en même temps que dans sw.js
 const KEY = 'carnet:data';
 const IS_ANDROID = /Android/i.test(navigator.userAgent);
 
@@ -317,7 +317,8 @@ function noteCard(n) {
   const active = editor && editor.id === n.id ? 'active' : '';
   const nt = db.tasks.filter(t => t.noteId === n.id && !t.done).length;
   return `<article class="card ${active}" data-act="open-note" data-id="${n.id}" tabindex="0" style="--c:${fColor(n.folderId)}">
-    <div class="card-top"><span class="fname">${esc(fName(n.folderId))}</span>${n.pinned ? icon('pin') : ''}<time>${relTime(n.updated)}</time></div>
+    <div class="card-top"><span class="fname">${esc(fName(n.folderId))}</span>${n.pinned ? icon('pin') : ''}<time>${relTime(n.updated)}</time>
+      <button class="card-trash" data-act="trash-card" data-id="${n.id}" aria-label="Mettre cette note à la corbeille" title="Mettre à la corbeille">${icon('trash')}</button></div>
     <h3>${esc(noteTitle(n))}</h3>
     ${noteExcerpt(n) ? `<p>${esc(noteExcerpt(n))}</p>` : ''}
     ${nt ? `<div class="mini"><span class="tag">${icon('tasks')}${plural(nt, 'tâche', 'tâches')}</span></div>` : ''}
@@ -1083,6 +1084,13 @@ function trashNote(id) {
   n.deleted = Date.now(); n.updated = Date.now(); persist();
   toast('Note mise à la corbeille', { action: 'Annuler', onAction: () => { n.deleted = 0; n.updated = Date.now(); persist(); go('#/note/' + n.id); } });
 }
+/* Petite poubelle sur chaque note de la liste : corbeille directe (30 jours), avec « Annuler » pendant quelques secondes. */
+function trashFromList(id) {
+  const n = getNote(id); if (!n) return;
+  n.deleted = Date.now(); n.updated = Date.now(); persist(); renderList();
+  if (navigator.vibrate) navigator.vibrate(12);
+  toast('Note mise à la corbeille', { ms: 6000, action: 'Annuler', onAction: () => { n.deleted = 0; n.updated = Date.now(); persist(); renderList(); } });
+}
 function refreshEditorFolder() {
   if (!editor) return; const n = getNote(editor.id); if (!n) return;
   editor.root.style.setProperty('--c', fColor(n.folderId));
@@ -1341,6 +1349,7 @@ const ACT = {
   'new-note': () => { const n = newNote(); go('#/note/' + n.id); setTimeout(() => editor && editor.body.focus(), 330); },
   'new-lesson': () => startDictatedNote(TEMPLATES[0]),
   'new-task': () => taskSheet(null),
+  'trash-card': el => trashFromList(el.dataset.id),
   'open-note': el => { if (editor && editor.id === el.dataset.id) return; state.wide && editor ? go('#/note/' + el.dataset.id, true) : go('#/note/' + el.dataset.id); },
   'filter': el => {
     const id = el.dataset.id;

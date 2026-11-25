@@ -1,5 +1,10 @@
 # Le Carnet de Fred — mode d'emploi
 
+## Mise à jour 1.6.2 — poubelle sur chaque note
+
+Chaque note de la liste a une petite poubelle en haut à droite. Un appui l'envoie à la corbeille
+(restaurable 30 jours, onglet Dossiers → Corbeille), avec un bouton **Annuler** pendant 6 secondes.
+
 ## Mise à jour 1.6.1 — dossier choisi bien visible, lumière de bougie, nouvelle icône
 
 - **Dossier sélectionné :** il devient un aplat plein de sa couleur, texte blanc, grosse coche et liseré de laiton ;
