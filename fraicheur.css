@@ -303,3 +303,27 @@ mark { background: #fbeec6; }
 .write-pill:hover { background: #fff; }
 .write-pill:active { transform: scale(.93); }
 :root[data-theme="dark"] .write-pill { background: rgba(23,52,74,.92); color: var(--tint); border-color: var(--brass-soft); }
+
+/* ---------- 1.6.3 : chaque onglet du bas a sa teinte (indigo, améthyste, or ancien, saphir) ---------- */
+.nav-item[data-nav="notes"]   { --nc: #46399E; }
+.nav-item[data-nav="calendar"]{ --nc: #8A4FB8; }
+.nav-item[data-nav="tasks"]   { --nc: #A5741C; }
+.nav-item[data-nav="folders"] { --nc: #2E5FA3; }
+.nav-item[data-nav="search"]  { --nc: #4A6378; }
+.nav-item, #nav .nav-item {
+  color: color-mix(in srgb, var(--nc, var(--ink-3)) 88%, #0b2540);
+  font-weight: 700;
+}
+.nav-item .ic { stroke-width: 1.9; }
+.nav-item.on, #nav .nav-item.on {
+  color: color-mix(in srgb, var(--nc) 92%, #0b2540);
+  background: color-mix(in srgb, var(--nc) 15%, #fff);
+  border-radius: 18px;
+}
+.nav-item.on::after, #nav .nav-item.on::after { background: var(--nc); }
+@media (max-width: 899.98px) {
+  .nav-item { margin: 5px 3px; padding: 7px 0 6px; }
+  .nav-item.on::after { bottom: 3px; width: 18px; height: 3px; border-radius: 2px; }
+}
+:root[data-theme="dark"] .nav-item, :root[data-theme="dark"] #nav .nav-item { color: color-mix(in srgb, var(--nc, #8fb0c6) 55%, #fff); }
+:root[data-theme="dark"] .nav-item.on { background: color-mix(in srgb, var(--nc) 30%, #17344a); color: #fff; }
