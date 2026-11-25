@@ -1,5 +1,10 @@
 # Le Carnet de Fred — mode d'emploi
 
+## Mise à jour 1.6.4 — 24 couleurs de dossier + une couleur libre
+
+Dans Dossiers → ⋯ → Modifier (ou Nouveau dossier), la palette passe de 8 à 24 teintes, et le rond arc-en-ciel « + »
+ouvre le sélecteur de couleur du téléphone pour choisir n'importe quelle teinte.
+
 ## Mise à jour 1.6.3 — accueil épuré
 
 Le bouton calendrier du haut disparaît (l'Agenda est déjà dans la barre du bas) et le crayon devient

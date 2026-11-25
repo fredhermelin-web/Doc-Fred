@@ -1,7 +1,7 @@
 /* Le Carnet de Fred — service worker
    Garde toute l'appli en cache pour qu'elle s'ouvre sans réseau.
    À CHAQUE MISE EN LIGNE : change VERSION ici ET dans app.js. */
-const VERSION = '1.6.3';
+const VERSION = '1.6.4';
 const CACHE = 'carnet-' + VERSION;
 const ASSETS = [
   './', './index.html', './app.css', './coast.css', './coastline.svg', './fraicheur.css', './ciel.jpg', './ciel-bas.jpg', './lora.woff', './lora-italic.woff', './app.js', './config.js', './manifest.webmanifest',

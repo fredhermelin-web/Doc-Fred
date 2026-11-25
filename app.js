@@ -5,7 +5,7 @@
 'use strict';
 (() => {
 
-const VERSION = '1.6.3';            // à changer en même temps que dans sw.js
+const VERSION = '1.6.4';            // à changer en même temps que dans sw.js
 const KEY = 'carnet:data';
 const IS_ANDROID = /Android/i.test(navigator.userAgent);
 
@@ -151,7 +151,10 @@ const DEFAULT_SETTINGS = { theme: 'auto', filter: 'all', taskFilter: 'all', last
   gClientId: '', syncOn: false, syncLast: 0 };
 // palette sans rose : bleu nuit de scène, vert-bleu, ocre, rouge brique, vert, ardoise, orange, brun
 // 1.6.1 : teintes « cabinet de curiosités » (indigo, améthyste, or ancien, saphir…), plus de vert
-const PALETTE = ['#46399E', '#8A4FB8', '#B5832A', '#C8452C', '#2E5FA3', '#4A6378', '#E07A1F', '#7A6A5A'];
+const PALETTE = ['#46399E', '#8A4FB8', '#B5832A', '#C8452C', '#2E5FA3', '#4A6378', '#E07A1F', '#7A6A5A',
+  // 1.6.4 : 16 teintes de plus (bleus de nuit, violets, grenats, cuivres, ardoises, deux verts profonds)
+  '#3B3F8C', '#1F4E79', '#3F7CAC', '#5B6FD6', '#6B3FA0', '#A25CC4', '#5E3A7E', '#7A5C9E',
+  '#A12F3E', '#8C2F39', '#D1603D', '#C98A1B', '#8A5A2B', '#5D6B82', '#2F7D6F', '#3E6B5A'];
 const OLD_DEFAULTS = { 'f-tes': ['#3D5AC4', '#46399E'], 'f-pda': ['#1F8A80', '#8A4FB8'], 'f-perso': ['#C98A1B', '#B5832A'] };
 const OLD_PINK = '#C2417B';
 // icônes de dossiers (dessins au trait, plus d'emojis)
@@ -923,18 +926,21 @@ function folderPicker(current, onPick) {
 
 function folderSheet(f, onSaved) {
   const isNew = !f;
-  const cur = f ? { ...f, icon: f.icon || 'folder' } : { name: '', icon: 'folder', color: PALETTE[folders().length % PALETTE.length] };
+  const cur = f ? { ...f, icon: f.icon || 'folder' } : { name: '', icon: 'folder', color: PALETTE[folders().length % 8] };
   openSheet(`<h2>${isNew ? 'Nouveau dossier' : 'Modifier le dossier'}</h2>
     <div class="field"><label for="fs-name">Nom</label><input id="fs-name" class="input" maxlength="40" placeholder="ex. Cours particuliers" value="${esc(cur.name)}"></div>
     <div class="field"><label>Icône</label><div class="emojis icons">${ICONS.map(e => `<button type="button" data-emo="${e}" class="${e === cur.icon ? 'on' : ''}" aria-label="${e}">${icon(e)}</button>`).join('')}</div></div>
-    <div class="field"><label>Couleur</label><div class="swatches">${PALETTE.map(c => `<button type="button" data-col="${c}" style="--c:${c}" class="${c === cur.color ? 'on' : ''}" aria-label="Couleur ${c}"></button>`).join('')}</div></div>
+    <div class="field"><label>Couleur</label><div class="swatches">${PALETTE.map(c => `<button type="button" data-col="${c}" style="--c:${c}" class="${c === cur.color ? 'on' : ''}" aria-label="Couleur ${c}"></button>`).join('')}
+      <label class="sw-custom ${PALETTE.includes(cur.color) ? '' : 'on'}" style="--c:${PALETTE.includes(cur.color) ? 'transparent' : cur.color}" title="Autre couleur…"><input type="color" value="${/^#[0-9a-f]{6}$/i.test(cur.color) ? cur.color : '#46399E'}" aria-label="Choisir une autre couleur"></label></div></div>
     ${isNew ? '' : `<div class="btn-row"><button class="btn" data-move="-1">Monter</button><button class="btn" data-move="1">Descendre</button></div>`}
     <div class="actions">${isNew ? '<button class="btn" data-act="sheet-close">Annuler</button>' : '<button class="btn danger" id="fs-del">Supprimer</button>'}
       <button class="btn primary" id="fs-ok">${isNew ? 'Créer' : 'Enregistrer'}</button></div>`, el => {
     const name = $('#fs-name', el);
     if (isNew) setTimeout(() => name.focus(), 250);
     $$('[data-emo]', el).forEach(b => b.onclick = () => { cur.icon = b.dataset.emo; $$('[data-emo]', el).forEach(x => x.classList.toggle('on', x === b)); });
-    $$('[data-col]', el).forEach(b => b.onclick = () => { cur.color = b.dataset.col; $$('[data-col]', el).forEach(x => x.classList.toggle('on', x === b)); });
+    const cust = $('.sw-custom', el), cin = $('input', cust);
+    $$('[data-col]', el).forEach(b => b.onclick = () => { cur.color = b.dataset.col; $$('[data-col]', el).forEach(x => x.classList.toggle('on', x === b)); cust.classList.remove('on'); cust.style.setProperty('--c', 'transparent'); });
+    cin.oninput = () => { cur.color = cin.value; $$('[data-col]', el).forEach(x => x.classList.remove('on')); cust.classList.add('on'); cust.style.setProperty('--c', cin.value); };
     $$('[data-move]', el).forEach(b => b.onclick = () => {
       const list = folders(), i = list.findIndex(x => x.id === f.id), j = i + Number(b.dataset.move);
       if (j < 0 || j >= list.length) return;
