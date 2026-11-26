@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="300" viewBox="0 0 960 300" role="img" aria-label="Montagnes et côte du Connemara en bleu brumeux">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1">
+      <stop stop-color="#e9f3fa"/>
+      <stop offset=".65" stop-color="#d5e8f1"/>
+      <stop offset="1" stop-color="#bad5e3"/>
+    </linearGradient>
+    <linearGradient id="water" x2="0" y2="1">
+      <stop stop-color="#9ccbd8"/>
+      <stop offset="1" stop-color="#659fb7"/>
+    </linearGradient>
+    <linearGradient id="cliff" x2="0" y2="1">
+      <stop stop-color="#7d9fa9"/>
+      <stop offset=".25" stop-color="#5a8798"/>
+      <stop offset="1" stop-color="#3e6e84"/>
+    </linearGradient>
+    <linearGradient id="mist" x2="0" y2="1">
+      <stop stop-color="#f1f8fc" stop-opacity="0"/>
+      <stop offset="1" stop-color="#f1f8fc" stop-opacity=".56"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="300" fill="url(#sky)"/>
+  <circle cx="778" cy="72" r="52" fill="#fff8da" opacity=".42"/>
+  <path d="M340 74 Q415 57 492 74 M585 57 Q672 37 724 50" fill="none" stroke="#f5fcf8" stroke-width="18" opacity=".38" stroke-linecap="round"/>
+  <path d="M0 194 Q120 183 210 190 T400 194 T620 182 T960 187 V300 H0Z" fill="url(#water)"/>
+  <path d="M428 190 Q497 173 551 166 L580 135 613 146 645 117 672 125 706 101 744 112 786 83 834 103 880 84 926 103 960 88 V225 Q866 209 779 211 Q660 207 578 214 Q486 220 428 212Z" fill="#a4bbc7" opacity=".56"/>
+  <path d="M505 193 L550 187 588 150 625 162 667 133 697 141 740 105 765 123 807 107 851 133 895 119 925 139 960 123 V236 Q892 224 814 231 Q738 239 667 218 Q588 218 505 222Z" fill="url(#cliff)"/>
+  <path d="M551 186 588 150 625 162 667 133 697 141 740 105 765 123 807 107 851 133 895 119 925 139 960 123" fill="none" stroke="#a3b8ad" stroke-width="8" stroke-linejoin="round" opacity=".8"/>
+  <path d="M590 165 585 207 M671 145 658 219 M744 118 725 229 M809 117 812 226 M897 132 888 235" fill="none" stroke="#2b5f74" opacity=".3" stroke-width="7" stroke-linecap="round"/>
+  <path d="M0 224 Q114 212 219 224 T438 220 T676 225 T960 215" fill="none" stroke="#e9f7f4" stroke-width="3" opacity=".65"/>
+  <path d="M37 252 Q168 236 273 246 T522 244 T810 250 T967 235" fill="none" stroke="#e6f5f0" stroke-width="2.4" opacity=".75"/>
+  <path d="M345 273 Q474 258 582 269 T830 265" fill="none" stroke="#f8fdf9" stroke-width="3" opacity=".68"/>
+  <path d="M720 54q10-9 20 0 10-9 20 0 M818 45q6-6 13 0 7-6 14 0" stroke="#4b7a92" stroke-width="2" opacity=".5" fill="none" stroke-linecap="round"/>
+  <rect width="960" height="300" fill="url(#mist)"/>
+</svg>
