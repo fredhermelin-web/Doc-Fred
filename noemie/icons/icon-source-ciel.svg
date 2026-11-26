@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"><defs>
+<linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7fcff"/><stop offset=".5" stop-color="#cfe8f6"/><stop offset="1" stop-color="#8fc4e6"/></linearGradient>
+<linearGradient id="brass" x1="0" y1="0" x2="1" y2=".6"><stop stop-color="#e9c57e"/><stop offset=".48" stop-color="#b98a3d"/><stop offset="1" stop-color="#e6c786"/></linearGradient>
+<linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fffdf6"/><stop offset="1" stop-color="#ecdcb8"/></linearGradient>
+<radialGradient id="halo"><stop stop-color="#ffd978" stop-opacity=".75"/><stop offset="1" stop-color="#ffd978" stop-opacity="0"/></radialGradient>
+</defs><rect width="512" height="512" rx="112" fill="url(#sky)"/><rect x="21" y="21" width="470" height="470" rx="95" fill="none" stroke="url(#brass)" stroke-width="6"/><rect x="34" y="34" width="444" height="444" rx="85" fill="none" stroke="#fff" stroke-width="1.6" opacity=".7"/>
+<path d="M117 405V190C117 127 191 93 256 65c65 28 139 62 139 125v215" fill="#2a6a9c" fill-opacity=".92" stroke="url(#brass)" stroke-width="9" stroke-linejoin="round"/>
+<path d="M131 389V195c0-54 65-84 125-111 60 27 125 57 125 111v194" fill="none" stroke="#f3e2b3" stroke-width="2.5" opacity=".75"/>
+<circle cx="256" cy="193" r="112" fill="url(#halo)"/>
+<circle cx="256" cy="190" r="59" fill="url(#brass)"/>
+<path d="M272 133a59 59 0 0 1 0 114c22-12 34-31 34-57s-12-45-34-57z" fill="#1f5886" opacity=".92"/>
+<path d="M157 181h16m-8-8v16M343 239h13m-6.5-6.5v13M320 123h10m-5-5v10M175 130h10m-5-5v10" stroke="#fff3cf" stroke-width="3.6" stroke-linecap="round" opacity=".95"/>
+<path d="M215 264l82 61M297 264l-82 61" stroke="#9a6f2c" stroke-width="11" stroke-linecap="round"/>
+<path d="M215 264l82 61M297 264l-82 61" stroke="#fbe6b0" stroke-width="3.4" stroke-linecap="round"/>
+<circle cx="214" cy="262" r="8.5" fill="url(#brass)"/><circle cx="298" cy="262" r="8.5" fill="url(#brass)"/>
+<path d="M111 369q71-25 145 9 74-34 145-9v42q-72-24-145 10-73-34-145-10z" fill="#1f5886" opacity=".28"/>
+<path d="M133 352q65-24 123 7 58-31 123-7v70q-64-24-123 8-59-32-123-8z" fill="url(#paper)" stroke="#b98a3d" stroke-width="5.5" stroke-linejoin="round"/>
+<path d="M256 359v71M153 371q45-10 83 10M153 390q45-10 83 10M276 381q38-20 83-10M276 400q38-20 83-10" fill="none" stroke="#6a86a0" stroke-width="3" opacity=".7" stroke-linecap="round"/>
+<path d="M124 439h264" stroke="#b98a3d" stroke-width="4" stroke-linecap="round" opacity=".8"/></svg>
