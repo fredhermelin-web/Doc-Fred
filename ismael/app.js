@@ -5,7 +5,7 @@
 'use strict';
 (() => {
 
-const VERSION = '1.6.4';            // à changer en même temps que dans sw.js
+const VERSION = '1.6.5';            // à changer en même temps que dans sw.js
 const KEY = 'carnet-ismael:data';
 const IS_ANDROID = /Android/i.test(navigator.userAgent);
 
@@ -147,7 +147,7 @@ function spokenToText(t) {
 }
 
 /* ---------- données ---------- */
-const DEFAULT_SETTINGS = { theme: 'auto', filter: 'all', taskFilter: 'all', lastFolder: 'f-tes', lastBackup: 0, installHidden: false,
+const DEFAULT_SETTINGS = { theme: 'light', filter: 'all', taskFilter: 'all', lastFolder: 'f-tes', lastBackup: 0, installHidden: false,
   gClientId: '', syncOn: false, syncLast: 0 };
 // palette sans rose : bleu nuit de scène, vert-bleu, ocre, rouge brique, vert, ardoise, orange, brun
 // 1.6.1 : teintes « cabinet de curiosités » (indigo, améthyste, or ancien, saphir…), plus de vert
@@ -1330,9 +1330,9 @@ function syncSetupSheet() {
 /* ---------- thème, badge, installation ---------- */
 function applyTheme() {
   const t = db.settings.theme;
-  document.documentElement.dataset.theme = t;
   const dark = t === 'dark' || (t === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
-  $('meta[name="theme-color"]').setAttribute('content', '#0d2038');
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';   // 1.6.5 : thème toujours net, jamais à moitié sombre
+  $('meta[name="theme-color"]').setAttribute('content', dark ? '#0f2538' : '#f2f8fc');
 }
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 function updateBadge() {

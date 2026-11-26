@@ -1,5 +1,9 @@
 # Le Carnet de Fred — mode d'emploi
 
+## Mise à jour 1.6.5 — thème clair par défaut
+
+Le carnet reste clair même si le téléphone est en mode sombre (textes toujours lisibles). Le mode Sombre se choisit à la main dans Dossiers, et il est maintenant cohérent.
+
 ## Mise à jour 1.6.4 — 24 couleurs de dossier + une couleur libre
 
 Dans Dossiers → ⋯ → Modifier (ou Nouveau dossier), la palette passe de 8 à 24 teintes, et le rond arc-en-ciel « + »
